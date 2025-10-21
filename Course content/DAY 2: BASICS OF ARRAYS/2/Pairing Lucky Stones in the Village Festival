@@ -1,0 +1,32 @@
+SOLUTION ===>
+
+#include <iostream>
+#include <vector>
+
+int find_lucky_stone_pairs(int p, int n, int m, std::vector<int>& stones) {
+    int count = 0;
+
+// Count how many stones are divisible by N or M.
+    for(int i = 0; i < p; i++){
+        if(stones[i] % n == 0 || stones[i] % m == 0){
+            count++;
+        }
+    }
+
+// Number of unique unordered pairs from 'count' stones.
+    int pairs = (count * (count - 1)) / 2;
+    
+    return pairs; 
+}
+
+int main() {
+    int p, n, m;
+    std::cin >> p >> n >> m;
+    std::vector<int> stones(p);
+    for (int i = 0; i < p; ++i) {
+        std::cin >> stones[i];
+    }
+    int result = find_lucky_stone_pairs(p, n, m, stones);
+    std::cout << result << std::endl;
+    return 0;
+}
