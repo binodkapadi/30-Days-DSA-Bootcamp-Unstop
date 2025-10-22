@@ -1,0 +1,40 @@
+SOLUTION ==>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+
+int calculate_min_moves(const std::vector<int>& seats, const std::vector<int>& students) {
+    int n = seats.size();
+
+    std::vector<int> sorted_seats = seats;
+    std::vector<int> sorted_students = students;
+
+    // Sort both arrays
+    std::sort(sorted_seats.begin(), sorted_seats.end());
+    std::sort(sorted_students.begin(), sorted_students.end());
+
+    // Calculate total moves
+    int total_moves = 0;
+    for (int i = 0; i < n; ++i) {
+        total_moves += std::abs(sorted_seats[i] - sorted_students[i]);
+    }
+    return total_moves;
+}
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::vector<int> seats(n);
+    std::vector<int> students(n);
+    for (int i = 0; i < n; ++i) {
+        std::cin >> seats[i];
+    }
+    for (int i = 0; i < n; ++i) {
+        std::cin >> students[i];
+    }
+    int result = calculate_min_moves(seats, students);
+    std::cout << result << std::endl;
+    return 0;
+}
