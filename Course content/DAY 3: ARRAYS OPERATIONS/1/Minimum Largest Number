@@ -1,0 +1,34 @@
+SOLUTION ==>
+
+#include <iostream>
+#include <vector>
+#include <climits>
+#include <algorithm>
+using namespace std;
+
+// Placeholder function for user logic
+int findLargestNumber(vector<int>& arr) {
+    sort(arr.begin(), arr.end());
+
+    int first = arr[0];
+    int second = arr[1];
+
+    int num1 = first * 10 + second;
+    int num2 = second * 10 + first;
+
+    return max(num1, num2); // Placeholder return value
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+
+    // Call user logic function and print the output
+    int result = findLargestNumber(arr);
+    cout << result << endl;
+    return 0;
+}
