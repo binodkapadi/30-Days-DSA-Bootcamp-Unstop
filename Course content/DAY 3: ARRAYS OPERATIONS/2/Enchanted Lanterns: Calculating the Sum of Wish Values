@@ -1,0 +1,39 @@
+SOLUTION ==>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+
+int calculate_wish_values_sum(int N, const std::vector<int>& A) {
+    std::vector<int> prefix_min(N), suffix_max(N);
+    
+    prefix_min[0] = A[0];
+    for (int i = 1; i < N; ++i) {
+        prefix_min[i] = std::min(prefix_min[i - 1], A[i]);
+    }
+    
+    suffix_max[N - 1] = A[N - 1];
+    for (int i = N - 2; i >= 0; --i) {
+        suffix_max[i] = std::max(suffix_max[i + 1], A[i]);
+    }
+    
+    long long total = 0;
+    for (int i = 0; i < N; ++i) {
+        total += std::abs(suffix_max[i] - prefix_min[i]);
+    }
+    
+    return static_cast<int>(total);
+}
+
+int main() {
+    int N;
+    std::cin >> N;
+    std::vector<int> A(N);
+    for (int i = 0; i < N; ++i) {
+        std::cin >> A[i];
+    }
+    int result = calculate_wish_values_sum(N, A);
+    std::cout << result << std::endl;
+    return 0;
+}
