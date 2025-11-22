@@ -1,0 +1,58 @@
+SOLUTION ==>>
+
+
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+using namespace std;
+
+void count_tribonacci_subarrays(int n, const std::vector<int>& arr);
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::vector<int> arr(n);
+    for (int i = 0; i < n; ++i) {
+        std::cin >> arr[i];
+    }
+    count_tribonacci_subarrays(n, arr);
+    return 0;
+}
+
+const int MOD = 1e9 + 7;
+void count_tribonacci_subarrays(int n, const std::vector<int>& arr) {
+    // Precompute Tribonacci numbers up to 10^5
+    unordered_set<int> trib;
+    long long a = 0, b = 1, c = 1;
+    
+    trib.insert(a);
+    trib.insert(b);
+    trib.insert(c);
+    
+    while (true) {
+        long long next_val = a + b + c;
+        if (next_val > 100000) break;
+        trib.insert(next_val);
+        a = b;
+        b = c;
+        c = next_val;
+    }
+    
+    // Find contiguous segments of Tribonacci numbers
+    long long total = 0;
+    long long length = 0;
+    
+    for (int i = 0; i < n; i++) {
+        if (trib.find(arr[i]) != trib.end()) {
+            length++;
+        } else {
+            total += ((length * (length + 1)) / 2) % MOD;
+            length = 0;
+        }
+    }
+    // Add the last segment
+    total += ((length * (length + 1)) / 2) % MOD;
+    
+    // Output the result
+    cout << total << endl;
+}
