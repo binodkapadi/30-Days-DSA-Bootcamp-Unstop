@@ -1,0 +1,44 @@
+SOLUTION ===>
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Placeholder function where the user will write their logic
+int countValidPartitions(vector<int>& E, int N) {
+
+    vector<long long> prefix(N + 1, 0);
+
+    for(int i = 1; i <= N; i++){
+        prefix[i] = prefix[i-1] + E[i-1];
+    }
+
+    int count = 0;
+
+    for(int k = 1; k*2 < N; k++){
+        long long sumAlpha = prefix[k];
+        long long sumBeta = prefix[N-k] - prefix[k];
+        long long sumGamma = prefix[N] - prefix[N-k];
+
+        if(sumAlpha + sumGamma > sumBeta){
+            count++;
+        }
+    }
+    return count; // Placeholder return value
+}
+
+int main() {
+    int N;
+    cin >> N; // Read the number of plants
+
+    vector<int> E(N);
+    for (int i = 0; i < N; ++i) {
+        cin >> E[i];
+    }
+
+    int result = countValidPartitions(E, N);
+
+    cout << result << endl;
+
+    return 0;
+}
