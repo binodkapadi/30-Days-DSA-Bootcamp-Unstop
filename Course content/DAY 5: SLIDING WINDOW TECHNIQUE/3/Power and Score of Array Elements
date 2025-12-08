@@ -1,0 +1,78 @@
+SOLUTION ===>>
+
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+long long computeScore(std::vector<int>& arr) {
+    int N = arr.size();
+    const long long INF = LLONG_MAX;
+
+    vector<long long> prefixSecond(N, INF);
+    vector<long long> suffixSecond(N, INF);
+
+    // --------------------
+    // Build prefix 2nd min
+    // --------------------
+    long long mn1 = INF, mn2 = INF;
+
+    for (int i = 0; i < N; i++) {
+        prefixSecond[i] = mn2;
+
+        if (arr[i] < mn1) {
+            mn2 = mn1;
+            mn1 = arr[i];
+        }
+        // second minimum must be DISTINCT from mn1
+        else if (arr[i] > mn1 && arr[i] < mn2) {
+            mn2 = arr[i];
+        }
+    }
+
+    // --------------------
+    // Build suffix 2nd min
+    // --------------------
+    mn1 = mn2 = INF;
+
+    for (int i = N - 1; i >= 0; i--) {
+        suffixSecond[i] = mn2;
+
+        if (arr[i] < mn1) {
+            mn2 = mn1;
+            mn1 = arr[i];
+        }
+        // second minimum must be DISTINCT from mn1
+        else if (arr[i] > mn1 && arr[i] < mn2) {
+            mn2 = arr[i];
+        }
+    }
+
+    // --------------------
+    // Compute score
+    // --------------------
+    long long score = 0;
+
+    for (int i = 0; i < N; i++) {
+        long long a = prefixSecond[i];
+        long long b = suffixSecond[i];
+
+        long long p = max((long long)arr[i] - a, (long long)arr[i] - b);
+        score += p;
+    }
+    return score;
+}
+
+int main() {
+    int n;
+    std::cin >> n; 
+    std::vector<int> arr(n);
+    for (int i = 0; i < n; ++i) {
+        std::cin >> arr[i];
+    }
+
+    long long result = computeScore(arr);
+    std::cout << result << std::endl;
+
+    return 0;
+}
