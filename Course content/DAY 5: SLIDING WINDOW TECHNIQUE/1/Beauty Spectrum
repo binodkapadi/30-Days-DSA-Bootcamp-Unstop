@@ -1,0 +1,50 @@
+SOLUTION ===>>
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+std::vector<int> get_subarray_beauty(const std::vector<int>& nums, int k, int x) {
+    vector<int> freq(101, 0); // index 0→-50 ... 100→50
+    int n = nums.size();
+    vector<int> result(n - k + 1);
+
+    // Build initial window
+    for (int i = 0; i < k; i++) {
+        freq[nums[i] + 50]++;
+    }
+
+    auto getBeauty = [&]() {
+        int count = 0;
+        for (int v = -50; v < 0; v++) {
+            count += freq[v + 50];
+            if (count >= x) return v;
+        }
+        return 0; // fewer than x negatives
+    };
+
+    // Result for first window
+    result[0] = getBeauty();
+
+    // Slide the window
+    for (int i = k; i < n; i++) {
+        freq[nums[i - k] + 50]--; // outgoing
+        freq[nums[i] + 50]++;     // incoming
+        result[i - k + 1] = getBeauty();
+    }
+    return result;
+}
+
+int main() {
+    int k, x, n;
+    std::cin >> k >> x >> n;
+    std::vector<int> nums(n);
+    for (int i = 0; i < n; ++i) {
+        std::cin >> nums[i];
+    }
+    std::vector<int> result = get_subarray_beauty(nums, k, x);
+    for (const auto& val : result) {
+        std::cout << val << " ";
+    }
+    return 0;
+}
