@@ -1,0 +1,18 @@
+SOLUTION ===>
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long n;
+    cin >> n;
+
+    // Since all elements are 1
+    long long result = 2 * n;
+    if (n % 2 == 1) {
+        result -= 1;
+    }
+
+    cout << result << endl;
+    return 0;
+}
