@@ -1,0 +1,61 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool isPrime(int x) {
+    if (x <= 1) return false;
+    if (x == 2) return true;
+    if (x % 2 == 0) return false;
+    for (int i = 3; i * i <= x; i += 2) {
+        if (x % i == 0) return false;
+    }
+    return true;
+}
+
+void zigzag_traversal(int M, int N, vector<vector<int>>& grid) {
+    vector<int> result;
+
+    for (int i = 0; i < M; i++) {
+        // Left to right for even rows
+        if (i % 2 == 0) {
+            for (int j = 0; j < N; j++) {
+                if (!isPrime(grid[i][j])) {
+                    result.push_back(grid[i][j]);
+                }
+            }
+        }
+        // Right to left for odd rows
+        else {
+            for (int j = N - 1; j >= 0; j--) {
+                if (!isPrime(grid[i][j])) {
+                    result.push_back(grid[i][j]);
+                }
+            }
+        }
+    }
+
+    if (result.empty()) {
+        cout << -1;
+    } else {
+        for (int x : result) {
+            cout << x << " ";
+        }
+    }
+}
+
+int main() {
+    int M, N;
+    cin >> M >> N;
+    vector<vector<int>> grid(M, vector<int>(N));
+
+    for (int i = 0; i < M; ++i) {
+        for (int j = 0; j < N; ++j) {
+            cin >> grid[i][j];
+        }
+    }
+
+    zigzag_traversal(M, N, grid);
+    return 0;
+}
