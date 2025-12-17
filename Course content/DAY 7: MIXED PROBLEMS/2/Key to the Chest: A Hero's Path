@@ -1,0 +1,103 @@
+SOLUTION ===>>>
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <unordered_map>
+
+using namespace std;
+
+void find_shortest_path(std::vector<std::vector<char>>& grid, int n, int m);
+
+int main() {
+    int n, m;
+    std::cin >> n >> m;
+    std::vector<std::vector<char>> grid(n, std::vector<char>(m));
+    
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            std::cin >> grid[i][j];
+        }
+    }
+    
+    find_shortest_path(grid, n, m);
+    
+    return 0;
+}
+
+void find_shortest_path(std::vector<std::vector<char>>& grid, int n, int m) {
+     int sx = -1, sy = -1;
+    unordered_map<int, int> keyIndex;
+    int keyCount = 0;
+
+    // Find start and index keys
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (grid[i][j] == 'H') {
+                sx = i;
+                sy = j;
+            }
+            if (grid[i][j] == 'K') {
+                keyIndex[i * m + j] = keyCount++;
+            }
+        }
+    }
+
+    int finalMask = (1 << keyCount) - 1;
+
+    // visited[x][y][mask]
+    vector<vector<vector<bool>>> visited(
+        n, vector<vector<bool>>(m, vector<bool>(1 << keyCount, false))
+    );
+
+    queue<pair<pair<int,int>, pair<int,int>>> q;
+    // ((x, y), (mask, distance))
+    q.push({{sx, sy}, {0, 0}});
+    visited[sx][sy][0] = true;
+
+    int dx[4] = {1, -1, 0, 0};
+    int dy[4] = {0, 0, 1, -1};
+
+    while (!q.empty()) {
+        auto cur = q.front();
+        q.pop();
+
+        int x = cur.first.first;
+        int y = cur.first.second;
+        int mask = cur.second.first;
+        int dist = cur.second.second;
+
+        // If reached chest with all keys
+        if (grid[x][y] == 'C' && mask == finalMask) {
+            cout << dist << endl;
+            return;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+
+            if (nx < 0 || ny < 0 || nx >= n || ny >= m)
+                continue;
+            if (grid[nx][ny] == 'O')
+                continue;
+
+            int newMask = mask;
+
+            if (grid[nx][ny] == 'K') {
+                int id = keyIndex[nx * m + ny];
+                newMask |= (1 << id);
+            }
+
+            // Cannot enter chest without all keys
+            if (grid[nx][ny] == 'C' && newMask != finalMask)
+                continue;
+
+            if (!visited[nx][ny][newMask]) {
+                visited[nx][ny][newMask] = true;
+                q.push({{nx, ny}, {newMask, dist + 1}});
+            }
+        }
+    }
+    cout << "Impossible" << endl;
+}
