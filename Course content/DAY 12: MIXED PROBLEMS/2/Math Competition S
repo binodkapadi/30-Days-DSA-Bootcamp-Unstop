@@ -1,0 +1,35 @@
+SOLUTION ===>>
+
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+     int s1, s2, s3;
+    cin >> s1 >> s2 >> s3;
+
+    int sum = s1 + s2 + s3;
+
+    // total points must be even
+    if (sum % 2) {
+        cout << -1;
+        return 0;
+    }
+
+    int T = sum / 2;
+
+    // if largest score > total matches -> impossible
+    if (s3 > T) {
+        cout << -1;
+        return 0;
+    }
+
+    int result = min(T, s1 + s2);
+
+    cout << result;
+    return 0;
+}
