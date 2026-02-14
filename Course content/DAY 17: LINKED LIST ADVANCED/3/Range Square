@@ -1,0 +1,37 @@
+SOLUTION ===>>
+
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    int N1, N2;
+    cin >> N1 >> N2;
+
+    int N;
+    cin >> N;
+
+    vector<int> arr(N);
+
+    for (int i = 0; i < N; i++) {
+        cin >> arr[i];
+    }
+
+    for (int val : arr) {
+
+        int root = sqrt(val);
+
+        // check perfect square AND root in range
+        if (root * root == val && root >= N1 && root <= N2) {
+            cout << 1;
+            return 0;
+        }
+    }
+
+    cout << 0;
+    return 0;
+}
