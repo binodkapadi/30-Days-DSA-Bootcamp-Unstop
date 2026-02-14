@@ -1,0 +1,47 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+using namespace std;
+
+void find_middle_earth(const vector<int>& nums1, const vector<int>& nums2) {
+
+    vector<int> merged;
+    merged.reserve(nums1.size() + nums2.size());
+
+    // merge both arrays
+    merged.insert(merged.end(), nums1.begin(), nums1.end());
+    merged.insert(merged.end(), nums2.begin(), nums2.end());
+
+    sort(merged.begin(), merged.end());
+
+    int total = merged.size();
+    double median;
+
+    if (total % 2 == 1) {
+        median = merged[total / 2];
+    } else {
+        median = (merged[total/2 - 1] + merged[total/2]) / 2.0;
+    }
+
+    cout << fixed << setprecision(1) << median;
+}
+
+int main() {
+    int m, n;
+    cin >> m >> n;
+
+    vector<int> nums1(m), nums2(n);
+
+    for (int i = 0; i < m; ++i)
+        cin >> nums1[i];
+
+    for (int i = 0; i < n; ++i)
+        cin >> nums2[i];
+
+    find_middle_earth(nums1, nums2);
+
+    return 0;
+}
