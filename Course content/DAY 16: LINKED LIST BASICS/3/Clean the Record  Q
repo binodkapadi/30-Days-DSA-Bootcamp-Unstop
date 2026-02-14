@@ -1,0 +1,48 @@
+QUESTION ===>>
+
+-------------Clean the Record---------------
+PROBLEM STATEMENT
+The employees of a warehouse maintain a record of items that were brought in and taken out of it each day. The items taken
+out are represented as negative integers, and items brought in are represented as non-negative integers.The employees
+noticed that some of the entries in today’s record had been repeated by mistake.The record has been given as a sorted
+linked list, and the employees ask for your help to get a new sorted linked list containing only the unique entries in it.
+
+
+INPUT FORMAT
+The first line of the input contains a single integer N denoting the number of entries in the record.The second line of the 
+input contains N space-separated integers a1, a2, …, aN denoting the entries in the record in sorted order.
+
+
+OUTPUT FORMAT
+The first line of the output should contain a single integer M denoting the number of elements in the resultant linked list.
+If M > 0, the second line of the output should contain M unique integers representing the linked list representing the 
+updated record.
+
+
+CONSTRAINTS
+0 <= N <= 10^6
+-10^6 <= a1 <= a2 <= … <= aN <= 10^6
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+3
+1 1 2
+Testcase Output
+2
+1 2
+Explanation
+The given linked list is 1 -> 1 -> 2. We can observe that the elements at indices 1 and 2 are the same. After removing one
+of the elements, the new linked list will be 1->2
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+5
+1 1 2 3 3
+Testcase Output
+3
+1 2 3
+Explanation
+The given linked list is 1 -> 1 -> 2 -> 3 -> 3. We can observe that elements at indices 1, 2 and 4, 5 are the same. After
+removing elements at indices 1 and 4, the new linked list will be 1 -> 2 -> 3.
