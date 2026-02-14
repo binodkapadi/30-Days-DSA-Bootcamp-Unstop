@@ -1,0 +1,56 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+// Helper DFS function to calculate diameter
+int dfs(TreeNode* node, int &maxLen) {
+    if (!node) return 0;
+
+    int leftHeight = dfs(node->left, maxLen);
+    int rightHeight = dfs(node->right, maxLen);
+
+    // Update max marathon length (sum of left and right heights)
+    maxLen = max(maxLen, leftHeight + rightHeight);
+
+    // Return height of this node
+    return 1 + max(leftHeight, rightHeight);
+}
+
+int user_logic(TreeNode* root) {
+    int maxLen = 0;
+    dfs(root, maxLen);
+    return maxLen; // edges count
+}
+
+// Construct binary tree from input
+TreeNode* construct_tree(int i, const vector<pair<int, int>>& nodes) {
+    if (i < 0 || i >= nodes.size() || i == -1) return nullptr;
+    TreeNode* node = new TreeNode(i + 1);
+    if (nodes[i].first != -1) node->left = construct_tree(nodes[i].first - 1, nodes);
+    if (nodes[i].second != -1) node->right = construct_tree(nodes[i].second - 1, nodes);
+    return node;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<pair<int, int>> nodes(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> nodes[i].first >> nodes[i].second;
+    }
+
+    TreeNode* root = construct_tree(0, nodes);
+    int result = user_logic(root);
+    cout << result << endl;
+    return 0;
+}
