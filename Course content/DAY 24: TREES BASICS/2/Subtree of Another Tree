@@ -1,0 +1,72 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+struct Node {
+    int data;
+    Node *left, *right;
+    Node(int value) : data(value), left(NULL), right(NULL) {}
+};
+
+Node* new_node(int data) {
+    return new Node(data);
+}
+
+// Build binary tree from level-order input
+Node* insert_nodes(vector<string>& arr, int i) {
+    if (i >= arr.size() || arr[i] == "null") {
+        return NULL;
+    }
+
+    int data = stoi(arr[i]);
+    Node *root = new_node(data);
+    root->left = insert_nodes(arr, 2 * i + 1);
+    root->right = insert_nodes(arr, 2 * i + 2);
+    return root;
+}
+
+// Check if two trees are identical
+bool are_identical(Node* a, Node* b) {
+    if (!a && !b) return true;  // both NULL
+    if (!a || !b) return false; // one NULL
+    if (a->data != b->data) return false;
+
+    return are_identical(a->left, b->left) && are_identical(a->right, b->right);
+}
+
+// Check if sub_root exists in root
+bool is_parallel(Node* root, Node* sub_root) {
+    if (!sub_root) return true;  // empty B is always parallel
+    if (!root) return false;     // B exists but A ended
+
+    if (are_identical(root, sub_root)) return true;
+
+    return is_parallel(root->left, sub_root) || is_parallel(root->right, sub_root);
+}
+
+int main() {
+    int N, M;
+    cin >> N;
+    vector<string> WorldA(N);
+    for (int i = 0; i < N; i++) {
+        cin >> WorldA[i];
+    }
+
+    cin >> M;
+    vector<string> WorldB(M);
+    for (int i = 0; i < M; i++) {
+        cin >> WorldB[i];
+    }
+
+    Node* root_A = insert_nodes(WorldA, 0);
+    Node* root_B = insert_nodes(WorldB, 0);
+
+    bool result = is_parallel(root_A, root_B);
+
+    cout << (result ? "YES" : "NO") << endl;
+
+    return 0;
+}
