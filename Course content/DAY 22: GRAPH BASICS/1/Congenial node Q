@@ -1,0 +1,61 @@
+QUESTION ==>>
+
+----------------Congenial node-----------------
+PROBLEM STATEMENT
+You are given a tree with N nodes labeled from 1 to N. The tree consists of N-1 edges, where the i-th edge connects the
+nodes ui and vi.A congenial node is a node that is directly connected to all other nodes in the network.In other words,
+a node c is congenial if it has a degree of N−1 (i.e., it has edges connecting to every other node in the tree).Your task 
+is to find the congenial node in the given tree.
+
+
+INPUT FORMAT
+The first line consists of an integer N, which denotes the number of nodes in a given network.The next N-1 line consists
+of pairs of two numbers that denote the connection of two given nodes.
+
+
+OUTPUT FORMAT
+Print a single line consisting of an integer that is a congenial node.
+
+
+CONSTRAINTS
+3 <= N <= 2*10^5
+Number of edges == N - 1
+1 <= UI, VI <= N
+UI != VI.
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+5 
+1 2
+5 1 
+1 3 
+1 4
+Testcase Output
+1
+Explanation
+The given tree is:
+     1
+   / | \  \
+  2 3 4 5
+  
+Node 1 is directly connected to all other nodes {2, 3, 4, 5}.
+Since node 1 has a degree of 4 (N-1), it is the congenial node.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+4
+1 2 
+2 3
+4 2
+Testcase Output
+2
+Explanation
+Given tree:
+    2
+   / | \
+  1 3 4
+
+Node 2 is directly connected to {1, 3, 4}.
+Since node 2 has a degree of 3 (N-1), it is the congenial node.
