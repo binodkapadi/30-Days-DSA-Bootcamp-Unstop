@@ -1,0 +1,86 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <cmath>
+using namespace std;
+
+class TreeNode {
+public:
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+// Function to check if a number is perfect square
+bool isPerfectSquare(int sum) {
+    int root = sqrt(sum);
+    return root * root == sum;
+}
+
+// Build binary tree from level order array
+TreeNode* buildTree(vector<int>& nodes) {
+    int n = nodes.size();
+    if (n == 0 || nodes[0] == -1) return nullptr;
+
+    TreeNode* root = new TreeNode(nodes[0]);
+    queue<TreeNode*> q;
+    q.push(root);
+
+    int i = 1;
+    while (!q.empty() && i < n) {
+        TreeNode* curr = q.front();
+        q.pop();
+
+        // Left child
+        if (i < n && nodes[i] != -1) {
+            curr->left = new TreeNode(nodes[i]);
+            q.push(curr->left);
+        }
+        i++;
+
+        // Right child
+        if (i < n && nodes[i] != -1) {
+            curr->right = new TreeNode(nodes[i]);
+            q.push(curr->right);
+        }
+        i++;
+    }
+
+    return root;
+}
+
+string user_logic(int M, vector<int>& nodes) {
+    TreeNode* root = buildTree(nodes);
+    if (!root) return "NO";
+
+    int sum = 0;
+    TreeNode* curr = root;
+    while (curr) {
+        sum += curr->val;
+        curr = curr->right;
+    }
+
+    if (isPerfectSquare(sum)) return "YES";
+    else return "NO";
+}
+
+int main() {
+    int M;
+    cin >> M;
+    vector<int> nodes(M);
+    for (int i = 0; i < M; ++i) {
+        string val;
+        cin >> val;
+        if (val == "N") {
+            nodes[i] = -1; // N represents NULL
+        } else {
+            nodes[i] = stoi(val);
+        }
+    }
+    string result = user_logic(M, nodes);
+    cout << result << endl;
+    return 0;
+}
