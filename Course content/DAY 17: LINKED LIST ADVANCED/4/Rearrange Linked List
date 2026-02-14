@@ -1,0 +1,107 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+
+struct Node {
+    int data;
+    Node* next;
+    Node(int data) : data(data), next(nullptr) {}
+};
+
+class LinkedList {
+public:
+    Node* head;
+    Node* tail;
+
+    LinkedList() : head(nullptr), tail(nullptr) {}
+
+    void push(int data) {
+        Node* newNode = new Node(data);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
+    void printList() {
+        Node* temp = head;
+        while (temp != nullptr) {
+            std::cout << temp->data << " ";
+            temp = temp->next;
+        }
+        std::cout << std::endl;
+    }
+};
+
+void user_logic(LinkedList& linkedList) {
+    if (!linkedList.head || !linkedList.head->next)
+        return;
+
+    Node *h1 = nullptr, *t1 = nullptr;
+    Node *h2 = nullptr, *t2 = nullptr;
+    Node *h3 = nullptr, *t3 = nullptr;
+
+    Node* curr = linkedList.head;
+    int pos = 1;
+
+    while (curr) {
+        Node* nextNode = curr->next;
+        curr->next = nullptr;
+
+        if (pos % 3 == 1) {
+            if (!h1) h1 = t1 = curr;
+            else { t1->next = curr; t1 = curr; }
+        }
+        else if (pos % 3 == 2) {
+            if (!h2) h2 = t2 = curr;
+            else { t2->next = curr; t2 = curr; }
+        }
+        else {
+            if (!h3) h3 = t3 = curr;
+            else { t3->next = curr; t3 = curr; }
+        }
+
+        curr = nextNode;
+        pos++;
+    }
+
+    // connect lists
+    Node* newHead = nullptr;
+    Node* newTail = nullptr;
+
+    if (h1) { newHead = h1; newTail = t1; }
+    if (h2) {
+        if (!newHead) newHead = h2;
+        else newTail->next = h2;
+        newTail = t2;
+    }
+    if (h3) {
+        if (!newHead) newHead = h3;
+        else newTail->next = h3;
+        newTail = t3;
+    }
+
+    linkedList.head = newHead;
+    linkedList.tail = newTail;
+}
+
+int main() {
+    int n;
+    std::cin >> n;
+
+    LinkedList list;
+    for (int i = 0; i < n; ++i) {
+        int element;
+        std::cin >> element;
+        list.push(element);
+    }
+
+    user_logic(list);
+    list.printList();
+
+    return 0;
+}
