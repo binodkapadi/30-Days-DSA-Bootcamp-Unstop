@@ -1,0 +1,58 @@
+QUESTION ==>>
+
+--------------Cookie Quest: Harry & Shambh's Sweet Challenge----------
+PROBLEM STATEMENT
+Harry and Shambh are employees at a chocolate factory who have grown tired of their daily routine. To break the monotony,
+they decide to engage in a game over lunch. The game involves reaching exactly N cookies from an initial count of 0 cookies
+within a maximum of K moves.
+Game Rules:
+Harry and Shambh take turns making moves.
+Harry always moves first.
+In each move:
+Harry can add or subtract X cookies, where X is the count of even divisors of N.
+Shambh can add or subtract Y cookies, where Y is the count of odd divisors of N.
+Your task is to determine if they can reach exactly N cookies within K moves. If they can, output "YES" followed by the
+minimum number of moves required. If they cannot, output "NO".
+
+
+INPUT FORMAT
+The first line contains an integer 'N' representing the target number of cookies.The second line contains an integer 'K'
+representing the maximum number of moves allowed.
+
+
+OUTPUT FORMAT
+Print "YES" followed by the minimum number of moves required if it is possible to reach exactly N cookies within K moves.
+Print "NO" if it is not possible.
+
+
+CONSTRAINTS
+1 <= N <= 10^5
+1 <= K <= 10^5
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+15
+2
+Testcase Output
+NO
+Explanation
+Harry starts, X (number of even divisors of 15) is 0.
+Shambh follows, Y (number of odd divisors of 15) is 4 (1, 3, 5, 15).
+They cannot reach 15 cookies in just 2 moves.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+10
+5
+Testcase Output
+YES 5
+Explanation
+Harry starts, X (number of even divisors of 10) is 2 (12, 10). Shambh follows, Y (number of odd divisors of 10) is 2 (1, 5).
+They can reach 10 cookies in 3 moves: Harry adds 2 cookies (0 + 2 = 2),
+Shambh adds 2 cookie (2+ 2 = 4),
+Harry adds 2 cookies (4 + 2 = 6).
+Shambh adds 2 cookie (6+ 2 = 8),
+Harry adds 2 cookies (8 + 2 = 10).
+Thus, they reach 10 cookies in 5 moves.
