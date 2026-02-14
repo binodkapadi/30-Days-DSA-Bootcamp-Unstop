@@ -1,0 +1,65 @@
+QUESTION ==>>
+
+--------------Right Path to Perfect Square----------------
+PROBLEM STATEMENT
+You are given a Binary Tree with the root node provided. Starting from the root, imagine traveling to the right until you 
+reach a leaf node. During this traversal, collect the values of all the nodes encountered in your path.At the end of the 
+traversal:
+Calculate the sum of the collected node values.
+Determine whether the sum is a perfect square. A number is considered a perfect square if it can be expressed as the
+square of an integer (e.g., 1, 4, 9, 16, etc.).
+Note: Tree node values are given in a level-order traversel, where N in the sequence represents the NULL node.
+
+
+INPUT FORMAT
+The first line contains an integer M, representing the Nodes of the Tree.The second line contains M space-separated values,
+representing the Tree Nodes in level order.
+
+
+OUTPUT FORMAT
+Print "YES" if the sum of the collected values is a perfect square; otherwise, print "NO".
+
+
+CONSTRAINTS
+1 ≤ N ≤ 10^4
+1 ≤ arr[i] ≤ 10^4
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+7
+5 3 8 N N 6 10
+Testcase Output
+NO
+Explanation
+Level order traveral of the tree:
+                             5
+                           /     \ 
+                        3         8
+                                  /   \
+                                6    10
+
+Now we need to traverse toward right.
+5 -> 8 -> 10
+Sum = 23 (not a perfect square).
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+15
+1 2 3 4 5 6 7 8 9 N N N N 10 14
+Testcase Output
+YES
+Explanation
+Level order traveral of the tree:
+                             1 
+                           /     \ 
+                        2         3 
+                     /     \      /    \
+                  4        5   6     7 
+                /   \                  /   \
+              8     9              10   14
+
+Now we need to traverse toward right.
+1 -> 3 -> 7 -> 14
+Sum = 25 (perfect square).
