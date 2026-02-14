@@ -1,0 +1,42 @@
+QUESTION ==>>
+
+---------------Exponent Exploration---------------
+PROBLEM STATEMENT
+A group of explorers stumbles upon an ancient code that could lead them to hidden treasure. The code consists of a number 
+N, and they must figure out all possible pairs of numbers X and Y such that X raised to the power of Y equals N. Help 
+the explorers solve this puzzle by finding all such pairs where X^Y = N, and uncover the treasure's secret!
+
+
+INPUT FORMAT
+The first and only line of input contains a single integer N.
+
+
+OUTPUT FORMAT
+Print the count of valid pairs on the first line.Then, print each pair of X and Y (in ascending order of X) on a new line.
+
+
+CONSTRAINTS
+1 <= N <= 10^6
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+16
+Testcase Output
+3
+2 4
+4 2
+16 1
+Explanation
+For N=16
+16 can be rtepresented as; 2^4 ; 4^2 ; 16^1
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+23
+Testcase Output
+1
+23 1
+Explanation
+23 can only be represented as 23^1.
