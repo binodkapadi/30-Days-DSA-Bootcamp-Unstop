@@ -1,0 +1,69 @@
+SOLUTION ===>>
+
+#include <iostream>
+using namespace std;
+
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+string user_logic(ListNode* head) {
+    long long number = 0;
+
+    // Step 1: concatenate digits
+    ListNode* temp = head;
+    while (temp) {
+        number = number * 10 + temp->val;
+        temp = temp->next;
+    }
+
+    // Step 2: reverse number
+    long long reversed = 0;
+    long long copy = number;
+
+    while (copy > 0) {
+        reversed = reversed * 10 + (copy % 10);
+        copy /= 10;
+    }
+
+    // Step 3: sum of digits of reversed
+    long long sum = 0;
+    copy = reversed;
+
+    while (copy > 0) {
+        sum += copy % 10;
+        copy /= 10;
+    }
+
+    // Step 4: subtract
+    long long result = reversed - sum;
+
+    // Step 5: even or odd
+    if (result % 2 == 0)
+        return "even";
+    else
+        return "odd";
+}
+
+int main() {
+    int N;
+    cin >> N;
+    ListNode* head = NULL;
+    ListNode* tail = NULL;
+    for (int i = 0; i < N; i++) {
+        int value;
+        cin >> value;
+        ListNode* newNode = new ListNode(value);
+        if (!head) {
+            head = newNode;
+        } else {
+            tail->next = newNode;
+        }
+        tail = newNode;
+    }
+    string result = user_logic(head);
+    cout << result << endl;
+    return 0;
+}
