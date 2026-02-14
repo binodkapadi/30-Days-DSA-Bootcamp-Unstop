@@ -1,0 +1,31 @@
+SOLUTION ==>>
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    unordered_map<int, int> degree;
+
+    for(int i = 0; i < n; i++) {
+        int u, v;
+        cin >> u >> v;
+        degree[u]++;
+        degree[v]++;
+    }
+
+    int center = -1, maxDeg = 0;
+
+    for(auto &p : degree) {
+        if(p.second > maxDeg) {
+            maxDeg = p.second;
+            center = p.first;
+        }
+    }
+
+    cout << center;
+
+    return 0;
+}
