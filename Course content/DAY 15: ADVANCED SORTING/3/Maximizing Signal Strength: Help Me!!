@@ -1,0 +1,35 @@
+SOLUTION ===>>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+
+float calculate_highest_average_efficiency(int N, std::vector<int>& efficiencies) {
+    if (N < 5) return 0.0; // Not enough components to remove 1/5
+
+    int k = N / 5; // number of components to turn off
+    std::sort(efficiencies.begin(), efficiencies.end()); // sort ascending
+
+    long long sum = 0;
+    for (int i = k; i < N; ++i) {
+        sum += efficiencies[i]; // sum of remaining components
+    }
+
+    double avg = (double)sum / (N - k);
+    return avg;
+}
+
+int main() {
+    int N;
+    std::cin >> N;
+    std::vector<int> efficiencies(N);
+    for (int i = 0; i < N; ++i) {
+        std::cin >> efficiencies[i];
+    }
+
+    float result = calculate_highest_average_efficiency(N, efficiencies);
+    std::cout << std::fixed << std::setprecision(5) << result << std::endl;
+
+    return 0;
+}
