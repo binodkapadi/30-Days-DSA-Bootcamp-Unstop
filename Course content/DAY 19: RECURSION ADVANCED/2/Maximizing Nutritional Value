@@ -1,0 +1,55 @@
+SOLUTION ==>>
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maximizeNutritionalValue(int n, int m, int k, vector<int> &price, vector<int> &nutrition) {
+     // dp[j][c] = max nutrition with budget j and c coupons used
+    vector<vector<int>> dp(m + 1, vector<int>(k + 1, 0));
+
+    for (int i = 0; i < n; i++) {
+        vector<vector<int>> new_dp = dp; // copy for this item
+
+        for (int money = 0; money <= m; money++) {
+            for (int coupons = 0; coupons <= k; coupons++) {
+                // Option 1: pick without coupon
+                if (money + price[i] <= m)
+                    new_dp[money + price[i]][coupons] = max(new_dp[money + price[i]][coupons],
+                                                            dp[money][coupons] + nutrition[i]);
+
+                // Option 2: pick with coupon
+                if (coupons + 1 <= k) {
+                    int discounted_price = price[i] / 2;
+                    if (money + discounted_price <= m)
+                        new_dp[money + discounted_price][coupons + 1] = max(new_dp[money + discounted_price][coupons + 1],
+                                                                          dp[money][coupons] + nutrition[i]);
+                }
+            }
+        }
+        dp = new_dp; // update dp for next item
+    }
+
+    // Answer: max nutrition achievable with any money <= m and coupons <= k
+    int ans = 0;
+    for (int money = 0; money <= m; money++)
+        for (int coupons = 0; coupons <= k; coupons++)
+            ans = max(ans, dp[money][coupons]);
+    return ans;
+}
+
+int main() {
+    int n, m, k;
+    cin >> n >> m >> k;
+    vector<int> price(n), nutrition(n);
+    for (int i = 0; i < n; i++) {
+        cin >> price[i];
+    }
+    for (int i = 0; i < n; i++) {
+        cin >> nutrition[i];
+    }
+
+    int result = maximizeNutritionalValue(n, m, k, price, nutrition);
+    cout << result << endl;
+
+    return 0;
+}
