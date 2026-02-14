@@ -1,0 +1,84 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+long long fib(int x) {
+    if (x <= 1) return x;
+
+    long long a = 0, b = 1;
+    for (int i = 2; i <= x; i++) {
+        long long c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+
+bool canSplit(vector<int>& arr, int n, int k, long long maxSum) {
+    long long curr = 0;
+    int parts = 1;
+
+    for (int i = 0; i < n; i++) {
+        if (curr + arr[i] > maxSum) {
+            parts++;
+            curr = arr[i];
+        } else {
+            curr += arr[i];
+        }
+    }
+
+    return parts <= k;
+}
+
+int peculiarNumber(int n, int k, vector<int>& arr) {
+     // Step 1: replace values
+    for (int i = 0; i < n; i++) {
+        arr[i] = abs(arr[i] - i);
+    }
+
+    long long low = 0, high = 0;
+
+    for (int x : arr) {
+        low = max(low, (long long)x);
+        high += x;
+    }
+
+    // Step 2: binary search minimum max sum
+    long long ans = high;
+
+    while (low <= high) {
+        long long mid = (low + high) / 2;
+
+        if (canSplit(arr, n, k, mid)) {
+            ans = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+
+    // Step 3: Fibonacci if < 100
+    if (ans < 100)
+        return fib(ans);
+    else
+        return ans;
+}
+
+int main() {
+    int n, k;
+    cin >> n >> k;
+    
+    vector<int> arr(n);
+    for(int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+
+    // Call user logic function and print the output
+    int result = peculiarNumber(n, k, arr);
+    cout << result << endl;
+
+    return 0;
+}
