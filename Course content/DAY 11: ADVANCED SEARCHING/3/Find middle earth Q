@@ -1,0 +1,54 @@
+QUESTION ==>>
+
+-------------Find middle earth----------------
+PROBLEM STATEMENT
+You are given two sorted arrays a1 and a2 of size m and n respectively. Now we combine the values of these two arrays
+to make a mega array. The resulting mega array is also sorted in nature.You are helping a data analytics team that collects
+numerical readings from two different sensors.Each sensor records values independently, and the readings may arrive in any
+order.To perform meaningful analysis, the team must merge all readings into one unified dataset and determine a key 
+statistic: the median.Given two arrays a1 and a2, containing m and n readings respectively, your task is to:Combine the 
+readings from both sensors.Organize the combined data in non-decreasing order.Compute and return the median of the final
+dataset.The median gives the central tendency of the combined sensor readings and helps the team judge the stability of 
+the system.Your task is to find the median of this mega array.
+
+
+INPUT FORMAT
+Each Input has three lines, containing space-separated integers.The first line contains 2 values m and n respectively.
+The second line contains m numbers that signify nums1.The third line contains n numbers that signify nums2.
+
+
+OUTPUT FORMAT
+Print the median of the combined array as a floating-point number rounded to exactly one decimal place.
+
+
+CONSTRAINTS
+nums1.length == m
+nums2.length == n
+0 <= m <= 10^6
+0 <= n <= 10^6
+1 <= m + n <= 2*10^6
+-10^4 <= nums1[i], nums2[i] <= 10^6
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+2 2
+1 3
+2 4
+Testcase Output
+2.5
+Explanation
+Resulting array:- [1,2,3,4] 
+Median of this array is ((2+3)/2) = 2.5
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+2 1
+1 3
+2
+Testcase Output
+2.0
+Explanation
+Resulting array:- [1,2,3] 
+Median of this array is 2.0
