@@ -1,0 +1,60 @@
+QUESTION ==>>
+
+-----------Blocked-----------------
+PROBLEM STATEMENT
+You are given an undirected graph with n vertices and m edges. Each edge connects two vertices and has a length of 1.For 
+each edge i, determine the shortest distance from vertex 1 to vertex N when all edges except edge i are passable.If 
+removing edge i makes vertex N unreachable from vertex 1, print -1.
+
+
+INPUT FORMAT
+The first line contains two integers representing the number of vertices n and the number of edges m.The next m lines
+contain two integers each, Ai and Bi, denoting an edge between vertex A and vertex B.
+
+
+OUTPUT FORMAT
+Print m lines. The i-th line should contain the shortest distance from vertex 1 to vertex N when all edges except i are
+passable, or -1 if vertex N is unreachable from vertex 1.
+
+
+CONSTRAINTS
+2 <= N <= 4*10^2
+1 <= m < n(n-1)
+1 <= Ai, Bi <= n
+Ai != Bi
+(Ai, Bi) != (Aj, Bj) for i != j
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+3 3
+1 2
+1 3
+2 3
+Testcase Output
+1
+2
+1
+Explanation
+Excluding the first edge, the shortest path is 1 through edge 1-3.
+Excluding the second edge, the shortest path is 2 via edge 1-2 and 2-3.
+Excluding the third edge, the shortest path is 1 through edge 1-2.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+4 4
+1 2
+2 3
+2 4
+3 4
+Testcase Output
+-1
+2
+3
+2
+Explanation
+If the first edge is excluded, there is no way to reach vertex 4 from vertex 1, so the output is -1.
+Excluding the second edge, the shortest path from vertex 1 to vertex 4 is of length 2 via edge 1-2 and 2-4.
+Excluding the third edge, the shortest path from vertex 1 to vertex 4 is of length 3 via edge 1-2, 2-3, and 3-4.
+Excluding the fourth edge, the shortest path is again of length 2.
