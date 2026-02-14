@@ -1,6 +1,6 @@
 QUESTION ==>>
 
----------------Counting Valid Plus Minus Permutations------------
+---------------Counting Valid Plus Minus Permutations-------------
 PROBLEM STATEMENT
 You are given a string S of length N where S[i] is either:
 '+' means Increasing, or
