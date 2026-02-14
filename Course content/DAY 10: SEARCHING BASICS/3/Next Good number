@@ -1,0 +1,45 @@
+SOLUTION ==>>
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool isGood(int num) {
+    while (num > 0) {
+        int digit = num % 10;
+        if (digit % 2 == 0) { 
+            return false;
+        }
+        num /= 10;
+    }
+    return true;
+}
+
+int next_good_number(int x) {
+    int candidate = x + 1;
+    while (true) {
+        if (isGood(candidate)) {
+            return candidate;
+        }
+        candidate++;
+    }
+}
+
+int main() {
+    int T;
+    std::cin >> T;
+    std::vector<int> results(T);
+
+    for (int i = 0; i < T; ++i) {
+        int x;
+        std::cin >> x;
+        results[i] = next_good_number(x);
+    }
+
+    for (const int &res : results) {
+        std::cout << res << std::endl;
+    }
+
+    return 0;
+}
