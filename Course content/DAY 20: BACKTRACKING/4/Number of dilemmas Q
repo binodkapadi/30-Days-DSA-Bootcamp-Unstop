@@ -1,0 +1,40 @@
+QUESTION ==>>
+
+-----------------Number of dilemmas---------------
+PROBLEM STATEMENT
+Saurav is preparing for his interviews this summer, and wants to thoroughly understand the classical N - queens puzzle.
+He has understood the solution from a prerequisite problem called the Queen's dilemma. But now he wants to know how many
+possible solutions exist for a given value of n. Help him by solving the problem given below.The N-queens puzzle is the 
+problem of placing n queens on an N x N chessboard such that no two queens attack each other.Given an integer N, return
+the number of distinct solutions to the N-queens puzzle.
+
+
+INPUT FORMAT
+The first and only line in each input contains a single integer N.
+
+
+OUTPUT FORMAT
+Contains an integer denoting the number of possible(not unique) solutions to the n queens problem for the given N.
+
+
+CONSTRAINTS
+0 <= N <= 9
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+4
+Testcase Output
+2
+Explanation
+For a chessboard of size 4x4, 
+There are 2 possible combinations possible.
+
+
+Sample Testcase 1
+Testcase Input
+1
+Testcase Output
+1
+Explanation
+For a 1x1 board, there's only one way to place a queen (and it's trivially valid).
