@@ -1,0 +1,39 @@
+SOLUTION ===>>
+
+#include <iostream>
+using namespace std;
+
+// helper to reverse digits
+int reverseNum(int x) {
+    int rev = 0;
+    while (x > 0) {
+        rev = rev * 10 + (x % 10);
+        x /= 10;
+    }
+    return rev;
+}
+
+// Function prototype
+int maxDigitReversalSum(int A, int B);
+
+int main() {
+    int A, B;
+    cin >> A >> B;
+
+    int result = maxDigitReversalSum(A, B);
+    cout << result << endl;
+
+    return 0;
+}
+
+// User will write the logic inside this function
+int maxDigitReversalSum(int A, int B) {
+      long long sum = 0;
+
+    for (int i = A; i <= B; i++) {
+        int rev = reverseNum(i);
+        sum += max(i, rev);
+    }
+
+    return sum;
+}
