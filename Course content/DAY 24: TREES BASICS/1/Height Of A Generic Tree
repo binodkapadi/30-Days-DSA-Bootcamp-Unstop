@@ -1,0 +1,74 @@
+SOLUTION ==>>
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Helper function to trim leading and trailing spaces
+static inline string trim(const string &s) {
+    int l = 0, r = (int)s.size() - 1;
+    while (l <= r && isspace((unsigned char)s[l])) ++l;
+    while (r >= l && isspace((unsigned char)s[r])) --r;
+    if (l > r) return string();
+    return s.substr(l, r - l + 1);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string all, line;
+    while (getline(cin, line)) {
+        if (!all.empty()) all.push_back(' ');
+        all += line;
+    }
+
+    // Tokenize input into nodes and "null" separators
+    string cur;
+    vector<string> tokens;
+    for (char c : all) {
+        if (c == '[' || c == ']') continue;
+        if (c == ',') {
+            string t = trim(cur);
+            if (!t.empty()) tokens.push_back(t);
+            cur.clear();
+        } else {
+            cur.push_back(c);
+        }
+    }
+    if (!cur.empty()) {
+        string t = trim(cur);
+        if (!t.empty()) tokens.push_back(t);
+    }
+
+    if (tokens.empty() || tokens[0] == "null") {
+        cout << 0 << '\n';
+        return 0;
+    }
+
+    int n = (int)tokens.size();
+    int idx = 1;
+
+    // Skip initial "null" if present
+    if (n > 1 && tokens[1] == "null") idx = 2;
+
+    int parents = 1;  // nodes at current level
+    int height = 1;   // height starts from 1 (root level)
+
+    // BFS-style simulation
+    while (idx < n) {
+        int nextParents = 0;
+        for (int p = 0; p < parents && idx < n; ++p) {
+            while (idx < n && tokens[idx] != "null") {
+                ++nextParents;
+                ++idx;
+            }
+            if (idx < n && tokens[idx] == "null") ++idx; // end of children group
+        }
+        if (nextParents == 0) break; // no more nodes
+        ++height;
+        parents = nextParents;
+    }
+
+    cout << height << '\n';
+    return 0;
+}
