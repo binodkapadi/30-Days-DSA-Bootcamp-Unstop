@@ -1,0 +1,70 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+struct Soldier {
+    int r, c, swords;
+};
+
+bool compareSoldiers(const Soldier& a, const Soldier& b) {
+    return a.swords < b.swords;
+}
+
+void user_logic(int k, int n, int m, const std::vector<std::vector<int>>& matrix) {
+    std::vector<Soldier> soldiers;
+    int kingR = -1, kingC = -1;
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (matrix[i][j] > 0) {
+                soldiers.push_back({i, j, matrix[i][j]});
+            } else if (matrix[i][j] == -1) {
+                kingR = i;
+                kingC = j;
+            }
+        }
+    }
+
+    std::sort(soldiers.begin(), soldiers.end(), compareSoldiers);
+
+    std::vector<std::pair<int, int>> path;
+    bool possible = true;
+    long long currentSwords = k;
+
+    for (const auto& s : soldiers) {
+        if (currentSwords > s.swords) {
+            currentSwords += s.swords;
+            path.push_back({s.r, s.c});
+        } else {
+            possible = false;
+            break;
+        }
+    }
+
+    if (possible && !soldiers.empty()) {
+        std::cout << "Save and path as i and j format" << std::endl;
+        for (const auto& p : path) {
+            std::cout << p.first << " " << p.second << std::endl;
+        }
+    } else {
+        std::cout << "Lose" << std::endl;
+    }
+}
+
+int main() {
+    int k, n, m;
+    if (!(std::cin >> k >> n >> m)) return 0;
+    
+    std::vector<std::vector<int>> matrix(n, std::vector<int>(m));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            std::cin >> matrix[i][j];
+        }
+    }
+    
+    user_logic(k, n, m, matrix);
+    
+    return 0;
+}
