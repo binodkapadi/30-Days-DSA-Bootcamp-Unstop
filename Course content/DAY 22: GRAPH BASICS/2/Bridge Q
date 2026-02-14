@@ -1,0 +1,49 @@
+QUESTION ==>>
+
+---------------------Bridge-----------------
+PROBLEM STATEMENT
+A country has N cities. Initially, there were bidirectional roads connecting every pair of different cities. However, M of
+these roads have become unusable. Each unusable road connects two cities U and V. A person wants to plan a K-day trip, 
+starting and ending in the same city, specifically city 1. Your task is to calculate the number of different K-day trips
+that start and end in city 1, with the result being given modulo 998244353.
+
+
+INPUT FORMAT
+The first line contains three integers N, M, and K representing the number of cities, the number of unusable roads, and the
+number of days for the trip.The next M lines each contain two integers Ui and Vi, representing an unusable road between 
+city U and city V.
+
+
+OUTPUT FORMAT
+Print a single integer representing the number of different K-day trips starting and ending in city 1, modulo 998244353.
+
+
+CONSTRAINTS
+2<=N<=5*10^3
+0<=m<=min(n*(n-1)/2,5*10^3)
+2<=k<=5*10^3
+1<=ui<=vi<=N
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+3 3 3
+1 2
+1 3
+2 3
+Testcase Output
+0
+Explanation
+In this case, all the roads between the cities have become unusable, making it impossible to complete any K-day trip
+that starts and ends in city 1.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+3 1 4
+2 3
+Testcase Output
+4
+Explanation
+In this case four different trips are possible (1,2,1,2,1) (1,2,1,3,1) (1,3,1,2,1) (1,3,1,3,1) resulting in a 
+total of 4 valid trips.
