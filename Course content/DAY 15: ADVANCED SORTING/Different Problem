@@ -1,0 +1,49 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+int calculate_difference(int num) {
+    bool negative = num < 0;
+    std::string s = std::to_string(std::abs(num));
+
+    std::string max_s = s;
+    std::string min_s = s;
+
+    if (!negative) {
+        // Positive number
+        std::sort(max_s.rbegin(), max_s.rend()); // descending
+        std::sort(min_s.begin(), min_s.end());   // ascending
+    } else {
+        // Negative number
+        std::sort(max_s.begin(), max_s.end());   // ascending
+        std::sort(min_s.rbegin(), min_s.rend()); // descending
+    }
+
+    int max_val = std::stoi(max_s);
+    int min_val = std::stoi(min_s);
+
+    if (negative) {
+        max_val = -max_val;
+        min_val = -min_val;
+    }
+
+    return max_val - min_val;
+}
+
+int main() {
+    int T;
+    std::cin >> T;
+    std::vector<int> results(T);
+    for (int i = 0; i < T; ++i) {
+        int num;
+        std::cin >> num;
+        results[i] = calculate_difference(num);
+    }
+    for (const int result : results) {
+        std::cout << result << std::endl;
+    }
+    return 0;
+}
