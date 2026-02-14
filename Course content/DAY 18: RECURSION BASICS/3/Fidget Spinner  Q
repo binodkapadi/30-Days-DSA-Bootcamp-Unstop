@@ -1,0 +1,45 @@
+QUESTION ==>>
+
+---------------Fidget Spinner-----------
+PROBLEM STATEMENT
+You are given a fidget spinner with numbered leaves from 1 to 6, and you need to find the number of possible ways to 
+construct a sum N using the numbers on the leaves. You can spin the spinner in either direction and repeatedly add the
+number pointed at by the spinner any number of times.
+
+
+INPUT FORMAT
+The first line of input contains an integer N representing the sum you need to construct.
+
+
+OUTPUT FORMAT
+Display the number of ways to construct the sum N, return it in modulo 10^9+7.
+
+
+CONSTRAINTS
+1<=N<=10^6
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+3
+Testcase Output
+4
+Explanation
+You want to find the different ways to construct a sum of 3.
+ Use 1 three times: 1+1+1=3
+ Use 1 once, and then use 2: 1+2=3
+ Use 2 once, and then use 1: 2+1=3
+ Use 3 once: 3=3.
+So there are 4 ways to construct 3.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+2
+Testcase Output
+2
+Explanation
+You want to find the different ways to construct a sum of 2.
+ Use 1 twice: 1+1=2
+ Use 2 once:  2=2
+So there are 2  ways to form 2.
