@@ -1,0 +1,47 @@
+SOLUTION ===>>
+
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+bool isSafe(int row, int col, const vector<int>& queens) {
+    // Check if placing a queen at (row, col) is safe
+    for (int r = 0; r < row; ++r) {
+        int c = queens[r];
+        if (c == col || abs(row - r) == abs(col - c))
+            return false;
+    }
+    return true;
+}
+
+void solve(int row, int n, vector<int>& queens, int& count) {
+    if (row == n) {
+        count++; // Found a valid placement
+        return;
+    }
+
+    for (int col = 0; col < n; ++col) {
+        if (isSafe(row, col, queens)) {
+            queens[row] = col;
+            solve(row + 1, n, queens, count);
+        }
+    }
+}
+
+int totalNQueens(int n) {
+    int count = 0;
+    vector<int> queens(n, -1); // queens[row] = col
+    solve(0, n, queens, count);
+    return count;
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    int result = totalNQueens(n);
+    cout << result << endl;
+
+    return 0;
+}
