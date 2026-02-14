@@ -1,0 +1,51 @@
+QUESTION ==>>
+
+-----------------Classroom--------------------
+PROBLEM STATEMENT
+In a classroom with N students and N available seats, each student has a preferred seat number, given in an array A.
+Students enter the classroom one by one in order from student 1 to N.Each student follows these rules when choosing a
+seat:If their preferred seat is vacant, they sit there.If their preferred seat is occupied, they continue searching 
+circularly (wrapping around if needed) until they find an empty seat.Your task is to determine the final seating
+arrangement of all students.
+
+
+INPUT FORMAT
+The first line contains an integer N (the number of students and seats).The second line contains N space-separated
+integers representing the seat preferences of the students. The seat numbers are typically between 1 and N.
+
+
+OUTPUT FORMAT
+Print a list of space-seperated integers representing the final seating arrangement, with each student seated in the 
+correct order.
+
+
+CONSTRAINTS
+1 <= N <= 10^5.
+1 <= A[i] <= N.
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+3
+3 3 3
+Testcase Output
+3 1 2
+Explanation
+Initially, all seats are empty: [_, _, _].
+Student 1 prefers seat 3, which is available. They take it: [_, _, S1].
+Student 2 also prefers seat 3, but it’s occupied. They move circularly and take the next available seat 1: [S2, _, S1].
+Student 3 also prefers seat 3, but it’s occupied. They move circularly and take the last available seat 2: [S2, S3, S1].
+Final seating arrangement:
+S1 takes Seat 3.
+S2 takes Seat 1.
+S3 takes Seat 2.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+1
+1
+Testcase Output
+1
+Explanation
+There is only a single student, so he will get his desired seat.
