@@ -1,0 +1,62 @@
+QUESTION ==>>
+
+-------------Path to follow maximum fruit in a matrix-------------
+PROBLEM STATEMENT
+A man wants to collect the maximum amount of fruit, tell them which path to followGiven a matrix representing a fruit tree
+with walls and paths, the task is to find the path that collects the maximum number of fruits. The fruits are represented
+by their names in the matrix, walls are represented by the string "wall", and empty paths are represented by the string 
+"path". If there is no fruit in the matrix, return null.
+
+
+INPUT FORMAT
+The first line of input contains an integer N, representing the number of rows in the matrix.The second line of input
+contains an integer M, representing the number of columns in the matrix.The third line of input contains space-seperated a
+list of strings representing the matrix.Note: The matrix is of size N x M.
+
+
+OUTPUT FORMAT
+Display a List of strings, where each fruit in the path is separated by '-->'. If no fruit is present in the matrix, return
+null.
+
+
+CONSTRAINTS
+1 < N <= 10^2
+1 < M <= 10^2
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+6
+6
+wall wall wall wall wall wall
+wall wall wall wall wall wall
+wall wall wall wall wall wall
+wall wall wall wall path wall
+wall wall wall wall wall wall
+wall wall wall wall wall wall
+Testcase Output
+null
+Explanation
+No fruit’s are present in matrix
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+6
+6
+apple banana lemon wall wall apple
+wall wall banana wall wall banana
+wall wall apple apple apple apple
+wall wall wall wall path wall
+mango lemon wall wall wall apple
+wall wall wall wall wall wall
+Testcase Output
+apple --> banana --> lemon --> banana --> apple --> apple --> apple --> apple --> banana --> apple
+Explanation
+Starting at apple at position (0, 0).
+Move right to banana at position (0, 1).
+Continue to lemon at position (0, 2).
+Move down to banana at position (1, 2).
+Continue down to apple at position (2, 2).
+Move right, collecting four apples consecutively from (2, 3) to (2, 5).
+Then move up to banana at position (1, 5), and finish at apple at position (0, 5).
