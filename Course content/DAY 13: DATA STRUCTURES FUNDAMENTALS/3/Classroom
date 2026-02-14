@@ -1,0 +1,38 @@
+SOLUTION  ====>>
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void user_logic(int n, const std::vector<int>& seat_preferences, std::vector<int>& final_seating) {
+    vector<bool> taken(n + 1, false); 
+
+    for (int i = 0; i < n; ++i) {
+        int pref = seat_preferences[i];
+        int seat = pref;
+
+        while (taken[seat]) {
+            seat++;
+            if (seat > n) seat = 1; 
+        }
+
+        final_seating[i] = seat;
+        taken[seat] = true; 
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> seat_preferences(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> seat_preferences[i];
+    }
+    vector<int> final_seating(n);
+    user_logic(n, seat_preferences, final_seating);
+    for (int i = 0; i < n; ++i) {
+        cout << final_seating[i] << " ";
+    }
+    cout << endl;
+    return 0;
+}
