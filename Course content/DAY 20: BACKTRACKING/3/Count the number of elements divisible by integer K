@@ -1,0 +1,52 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <set>
+
+using namespace std;
+  
+  
+void generateNumbers(set<long long>& nums, long long current, vector<int>& arr, vector<bool>& used) {
+    for (int i = 0; i < arr.size(); ++i) {
+        if (!used[i]) {
+            used[i] = true;
+            long long next = current * 10 + arr[i];
+            nums.insert(next);
+            generateNumbers(nums, next, arr, used);
+            used[i] = false;
+        }
+    }
+}
+
+// Placeholder for user logic function
+int count_divisible_combinations(int K, int N, vector<int>& arr) {
+     set<long long> nums;
+    vector<bool> used(N, false);
+    generateNumbers(nums, 0, arr, used);
+
+    int count = 0;
+    for (long long num : nums) {
+        if (num != 0 && num % K == 0) count++;
+    }
+    return count;
+}
+
+int main() {
+    int K;
+    cin >> K;
+
+    int N;
+    cin >> N;
+
+    vector<int> arr(N);
+    for (int i = 0; i < N; ++i) {
+        cin >> arr[i];
+    }
+
+    // Call user logic function and print the output
+    int result = count_divisible_combinations(K, N, arr);
+    cout << result << endl;
+
+    return 0;
+}
