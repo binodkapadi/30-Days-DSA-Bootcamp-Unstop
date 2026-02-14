@@ -1,0 +1,47 @@
+QUESTION ==>>
+
+---------------Counting Valid Plus Minus Permutations------------
+PROBLEM STATEMENT
+You are given a string S of length N where S[i] is either:
+'+' means Increasing, or
+'-' means Decreasing.
+A permutation perm of n + 1 integers of all the integers in the range [0, n] is called a Plus Minus Sequence if for all 
+valid i:
+If s[i] == '-', then perm[i] > perm[i + 1], and
+If s[i] == '+', then perm[i] < perm[i + 1].
+Return the number of valid Plus Minus Sequences perms. Since the answer may be large, return it modulo 109 + 7.
+
+
+INPUT FORMAT
+The first and only line will contain a single string S of length N containing only ‘+’ and ‘-’ as characters.
+
+
+OUTPUT FORMAT
+Print a single integer denoting the number of valid Plus Minus Sequences.
+
+
+CONSTRAINTS
+1 ≤ n ≤ 104
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+-+-
+Testcase Output
+5
+Explanation
+The 5 valid permutations of (0, 1, 2, 3) which are Plus Minus Sequences are:
+(1, 0, 3, 2)
+(2, 0, 3, 1)
+(2, 1, 3, 0)
+(3, 0, 2, 1)
+(3, 1, 2, 0)
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+-
+Testcase Output
+1
+Explanation
+The 1 and only valid permutations of (0, 1) which is a Plus Minus Sequence is (1,0).
