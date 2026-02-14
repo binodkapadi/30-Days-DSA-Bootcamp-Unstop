@@ -1,0 +1,48 @@
+QUESTION ==>>
+
+PROBLEM STATEMENT
+Marco is fond of storybooks. He is currently reading a very interesting book where there is a concept of a parallel world.
+Two worlds will be called parallel if one world is completely a subpart of the other one in terms of structure and value.
+The world has countries that are connected with each other in the form of a tree.Marco is curious about whether World B is
+a parallel world to World A or not.
+
+
+INPUT FORMAT
+The first line contains an integer N, the number of inputs representing the structure of countries in World A including
+‘null’.The second line contains N strings which represent numbers countriesA[i] where 0 ≤ i < N .The third line contains
+an integer M, the number of inputs representing the structure of countries in World B including ‘null’.The fourth line
+contains M strings which represent numbers countriesB[i] where 0 ≤ i < M .
+
+
+OUTPUT FORMAT
+The first line contains ‘YES’ if World B is parallel world to World A , otherwise ‘NO’.
+
+
+CONSTRAINTS
+-10^5 <= N,M <= 10^5
+-10^4 <= countriesA[i], countriesB[i] <= 10^4
+‘null’  in countriesA[i] , countriesB[i] represents NULL value.
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+5
+3 4 5 1 2
+3
+4 1 2
+Testcase Output
+YES
+Explanation
+Here , The world B is parallel world to world A .
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+10
+3 4 5 1 2 null null 1 null 0
+3
+4 1 2
+Testcase Output
+NO
+Explanation
+Here , The world B is not parallel world to world A as there is a left node at right side which is not NULL. 
