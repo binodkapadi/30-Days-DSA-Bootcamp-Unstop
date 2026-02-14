@@ -1,0 +1,115 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+vector<string> best_path;
+
+void dfs(int r, int c, vector<vector<string>>& matrix, vector<vector<bool>>& visited, 
+         vector<string>& current_path) {
+    
+    int N = matrix.size();
+    int M = matrix[0].size();
+    
+    // Mark current cell as visited
+    visited[r][c] = true;
+    
+    // If current cell is a fruit, add it to path
+    if (matrix[r][c] != "wall" && matrix[r][c] != "path") {
+        current_path.push_back(matrix[r][c]);
+    }
+    
+    // Update best path if current has more fruits
+    if (current_path.size() > best_path.size()) {
+        best_path = current_path;
+    }
+    
+    // Explore neighbors in all 4 directions
+    int dr[] = {-1, 1, 0, 0};
+    int dc[] = {0, 0, -1, 1};
+    
+    for (int i = 0; i < 4; i++) {
+        int nr = r + dr[i];
+        int nc = c + dc[i];
+        
+        // Check boundaries
+        if (nr >= 0 && nr < N && nc >= 0 && nc < M) {
+            // We can move to: fruits or paths (but not walls)
+            if (!visited[nr][nc] && matrix[nr][nc] != "wall") {
+                dfs(nr, nc, matrix, visited, current_path);
+            }
+        }
+    }
+    
+    // Backtrack
+    if (matrix[r][c] != "wall" && matrix[r][c] != "path") {
+        current_path.pop_back();
+    }
+    visited[r][c] = false;
+}
+
+vector<string> fruit_paths(vector<vector<string>>& matrix) {
+    int N = matrix.size();
+    if (N == 0) return {};
+    int M = matrix[0].size();
+    
+    best_path.clear();
+    
+    // Check if there are any fruits at all
+    bool hasFruits = false;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            if (matrix[i][j] != "wall" && matrix[i][j] != "path") {
+                hasFruits = true;
+                break;
+            }
+        }
+        if (hasFruits) break;
+    }
+    
+    if (!hasFruits) return {};
+    
+    // Try starting from every cell
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            // Start from any cell that's not a wall
+            if (matrix[i][j] != "wall") {
+                vector<vector<bool>> visited(N, vector<bool>(M, false));
+                vector<string> current_path;
+                dfs(i, j, matrix, visited, current_path);
+            }
+        }
+    }
+    
+    return best_path;
+}
+
+int main() {
+    int N, M;
+    cin >> N >> M;
+    
+    vector<vector<string>> matrix(N, vector<string>(M));
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            cin >> matrix[i][j];
+        }
+    }
+    
+    vector<string> result = fruit_paths(matrix);
+    
+    if (result.empty()) {
+        cout << "null" << endl;
+    } else {
+        for (size_t i = 0; i < result.size(); i++) {
+            if (i > 0) cout << " --> ";
+            cout << result[i];
+        }
+        cout << endl;
+    }
+    
+    return 0;
+}
