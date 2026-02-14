@@ -1,0 +1,55 @@
+SOLUTION ===>>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+
+bool isFeasible(const vector<int>& groups, int K, int M) {
+    long long minutes = 0;
+    for (int g : groups) {
+        minutes += (g + K - 1) / K; // ceil(g/K)
+        if (minutes > M) return false;
+    }
+    return minutes <= M;
+}
+
+void user_logic(int n, vector<int>& enemy_groups, int m) {
+
+    int low = 1;
+    int high = *max_element(enemy_groups.begin(), enemy_groups.end());
+    int ans = high; // default
+
+    while (low <= high) {
+        int mid = low + (high - low)/2;
+
+        if (isFeasible(enemy_groups, mid, m)) {
+            ans = mid; // mid is feasible
+            high = mid - 1; // try smaller
+        } else {
+            low = mid + 1; // increase K
+        }
+    }
+
+    // Print decimal
+    cout << ans << " ";
+    
+    // Print octal
+    cout << oct << ans << endl;
+}
+
+int main() {
+    int n, m;
+    cin >> n;
+    vector<int> enemy_groups(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> enemy_groups[i];
+    }
+    cin >> m;
+    
+    user_logic(n, enemy_groups, m);
+    
+    return 0;
+}
