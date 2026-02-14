@@ -1,0 +1,54 @@
+QUESTION ==>>
+
+-----------Print the last second-row element from the postorder------------
+PROBLEM STATEMENT
+You are provided with an array representing the postorder traversal of a Binary Search Tree (BST). The task is to 
+reconstruct the BST from this postorder array and then identify the elements in the second-to-last row of the BST when
+it is printed in level order.
+
+
+INPUT FORMAT
+The first line contains an integer N, indicating the number of elements in the postorder array.The second line provides N 
+space-separated integers that represent the postorder traversal of the Binary Search Tree (BST).
+
+
+OUTPUT FORMAT
+Print the elements of the second-last row of the BST in level order.It will be sure that an answer will exist.
+
+
+CONSTRAINTS
+2 <= N < 10^3
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+6
+1 6 4 49 39 9
+Testcase Output
+4 39
+Explanation
+The tree will be:
+                                            9
+                                       /         \
+                                    4           39
+                                 /     \           \
+                               1       6          49
+
+Last second-row element which is 4 39
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+6
+1 9 5 40 15 14
+Testcase Output
+5 15
+Explanation
+The tree will be:
+                                          14
+                                       /         \
+                                    5           15
+                                 /     \           \
+                               1       9          40
+
+Last second-row element which is 5 15
