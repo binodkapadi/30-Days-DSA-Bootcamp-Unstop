@@ -1,0 +1,37 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int subset_xor_sum(const std::vector<int>& arr) {
+    int n = arr.size();
+    long long total = 0;
+
+    for (int bit = 0; bit <= 20; bit++) {
+        bool bit_set = false;
+        for (int x : arr) {
+            if (x & (1 << bit)) {
+                bit_set = true;
+                break;
+            }
+        }
+        if (bit_set) {
+            total += (1LL << bit) * (1LL << (n - 1));
+        }
+    }
+
+    return total;
+}
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::vector<int> arr(n);
+    for(int i = 0; i < n; ++i) {
+        std::cin >> arr[i];
+    }
+    int result = subset_xor_sum(arr);
+    std::cout << result << std::endl;
+    return 0;
+}
