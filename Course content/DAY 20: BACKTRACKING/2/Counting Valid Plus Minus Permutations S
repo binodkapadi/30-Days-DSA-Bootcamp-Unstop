@@ -1,0 +1,52 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+int numPlusMinusSequence(const std::string& S) {
+    int n = S.length();
+    const int MOD = 1e9 + 7;
+    
+    std::vector<int> dp(n + 1, 0);
+    dp[0] = 1;
+
+    for (int i = 1; i <= n; ++i) {
+        std::vector<int> next_dp(n + 1, 0);
+        std::vector<int> prefix_sum(i + 1, 0);
+        
+        prefix_sum[0] = dp[0];
+        for (int j = 1; j < i; ++j) {
+            prefix_sum[j] = (prefix_sum[j - 1] + dp[j]) % MOD;
+        }
+
+        for (int j = 0; j <= i; ++j) {
+            if (S[i - 1] == '+') {
+                if (j > 0) {
+                    next_dp[j] = prefix_sum[j - 1];
+                }
+            } else {
+                if (j < i) {
+                    int val = (prefix_sum[i - 1] - (j > 0 ? prefix_sum[j - 1] : 0) + MOD) % MOD;
+                    next_dp[j] = val;
+                }
+            }
+        }
+        dp = next_dp;
+    }
+
+    long long total = 0;
+    for (int count : dp) {
+        total = (total + count) % MOD;
+    }
+
+    return (int)total;
+}
+
+int main() {
+    std::string S;
+    if (!(std::cin >> S)) return 0;
+    int result = numPlusMinusSequence(S);
+    std::cout << result << std::endl;
+    return 0;
+}
