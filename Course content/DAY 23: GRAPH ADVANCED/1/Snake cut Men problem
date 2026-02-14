@@ -1,0 +1,72 @@
+QUESTION ==>>
+
+-----------------Snake cut Men problem----------------
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Directions: up, down, left, right
+int dx[4] = {-1, 1, 0, 0};
+int dy[4] = {0, 0, -1, 1};
+
+int dfs(vector<vector<char>> &matrix, int x, int y, int n, int m) {
+    // If out of bounds or wall, return 0
+    if (x < 0 || x >= n || y < 0 || y >= m || matrix[x][y] == 'w' || matrix[x][y] == 'v')
+        return 0;
+
+    // If reached man, count 1 path
+    if (matrix[x][y] == 'm') return 1;
+
+    // Mark current cell as visited only if it's path or snake
+    char temp = matrix[x][y];
+    matrix[x][y] = 'v';
+
+    int paths = 0;
+    // Explore all 4 directions
+    for (int dir = 0; dir < 4; dir++) {
+        int nx = x + dx[dir];
+        int ny = y + dy[dir];
+        paths += dfs(matrix, nx, ny, n, m);
+    }
+
+    // Backtrack: restore original cell
+    matrix[x][y] = temp;
+
+    return paths;
+}
+
+int snake_to_man_path(vector<vector<char>> &matrix, int n, int m) {
+    int sx = -1, sy = -1;
+    int mx = -1, my = -1;
+
+    // Find snake and man positions
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (matrix[i][j] == 's') { sx = i; sy = j; }
+            if (matrix[i][j] == 'm') { mx = i; my = j; }
+        }
+    }
+
+    // If either snake or man is missing, return 0
+    if (sx == -1 || mx == -1) return 0;
+
+    return dfs(matrix, sx, sy, n, m);
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<char>> matrix(n, vector<char>(m));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            cin >> matrix[i][j];
+        }
+    }
+
+    int result = snake_to_man_path(matrix, n, m);
+    cout << result << endl;
+
+    return 0;
+}
