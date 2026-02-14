@@ -1,0 +1,43 @@
+SOLUTION ===>>
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+long long user_logic(int n, vector<int>& arr, vector<int>& b) {
+
+    sort(arr.begin(), arr.end());
+    sort(b.begin(), b.end());
+
+    long long interest1 = 0, interest2 = 0;
+
+    for (int i = 0; i < n; i++) {
+        interest1 += upper_bound(b.begin(), b.end(), arr[i]) - b.begin();
+    }
+
+    for (int i = 0; i < n; i++) {
+        interest2 += upper_bound(arr.begin(), arr.end(), b[i]) - arr.begin();
+    }
+
+    return max(interest1, interest2);
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> arr(n), b(n);
+
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    for (int i = 0; i < n; i++)
+        cin >> b[i];
+
+    long long result = user_logic(n, arr, b);
+
+    cout << result << endl;
+
+    return 0;
+}
