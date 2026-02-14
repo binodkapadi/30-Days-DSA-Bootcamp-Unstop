@@ -1,0 +1,51 @@
+QUESTION ==>>
+
+---------------Find the Center------------
+PROBLEM STATEMENT
+Once upon a time in a distant land, Saurav and Vikas set out to explore a star-shaped graph. This unique graph had 'n' 
+nodes, with one special node known as the center, connected to all other nodes through 'n - 1' edges.They were given a 
+scroll called 'edges' revealing connections between nodes as 'edges[i] = [ui, vi]'.Vikas, Aimed to identify the center 
+node hidden within this magical graph. Their quest was to unveil this mystery and find the label of the elusive center 
+node, where all paths converged.
+
+
+INPUT FORMAT
+First line of input contains n, the number of edges that will be available for input in the next lineSecond line of input
+contains n pairs of intergers which are all space separated representing the starting and ending of edge.
+
+
+OUTPUT FORMAT
+Output the node that is the centre of the given star graph.
+
+
+CONSTRAINTS
+3 <= n <= 10^5
+1 <= ui, vi <= n
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+4
+1 3
+2 3
+4 3
+5 3
+Testcase Output
+3
+Explanation
+In this scenario, node 3 is directly connected to all other nodes (1, 2, 4, and 5), making it the center of the star graph.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+5
+1 2
+2 3
+3 1
+4 1
+5 1
+Testcase Output
+1
+Explanation
+Node 1 is connected to every other node, forming a star graph. Even though other nodes have
+multiple connections, node 1 remains the center of the star graph in this configuration.
