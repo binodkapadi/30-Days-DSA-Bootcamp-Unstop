@@ -1,0 +1,36 @@
+SOLUTION ===>>
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+long long maximum_altitude(const vector<int>& change) {
+    long long altitude = 0;
+    long long maxAlt = 0;
+
+    for (int c : change) {
+        altitude += (long long)c;
+
+        if (altitude < 0)
+            altitude = 0;
+
+        maxAlt = max(maxAlt, altitude);
+    }
+
+    return maxAlt;
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> change(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> change[i];
+    }
+
+    long long result = maximum_altitude(change);
+    cout << result << endl;
+
+    return 0;
+}
