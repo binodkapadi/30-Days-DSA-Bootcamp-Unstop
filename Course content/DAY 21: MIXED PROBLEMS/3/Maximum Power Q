@@ -1,0 +1,46 @@
+QUESTION ==>
+
+--------------Maximum Power-------------
+PROBLEM STATEMENT
+You are given an integer array 'arr' of length N representing the power of individual army troops in a defense camp.
+Your task is to divide these troops into two army groups such that: 
+The total power of both groups is equal.
+Each group must contain at least one troop.
+Each troop can only belong to one group (no overlap between groups).
+Your goal is to determine if it is possible to divide the troops into two such groups. If it is possible, print the 
+total power of a single group. Otherwise, print 0.
+
+
+INPUT FORMAT
+The first line contains a single integer N.The second line contains N space-separated integers representing the
+elements of the array arr.
+
+
+OUTPUT FORMAT
+If it is possible to divide the troops into two groups with the given condition, print the total power of a single 
+group, Otherwise print 0.
+
+
+CONSTRAINTS
+0 <= N <= 10^2
+1 <= arr[i] <= 10^3
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+4 
+1 2 4 9
+Testcase Output
+0
+Explanation
+There is no way to form the two armies from the given powers. Hence the answer is 0.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+3
+1 3 2
+Testcase Output
+3
+Explanation
+We can form the two teams with power 3, i.e {1, 2} and {3}.
