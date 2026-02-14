@@ -1,0 +1,45 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <numeric>
+using namespace std;
+
+pair<int,int> countDivisors(int n){
+    int even=0, odd=0;
+    for(int i=1;i*i<=n;i++){
+        if(n%i==0){
+            int j=n/i;
+            if(i%2==0) even++; else odd++;
+            if(j!=i){
+                if(j%2==0) even++; else odd++;
+            }
+        }
+    }
+    return {even, odd};
+}
+
+string can_reach_cookies(int N, int K){
+    auto [X,Y] = countDivisors(N);
+    if(X==0 && Y==0) return (N==0) ? "YES 0":"NO";
+    
+    if(X==0) return (N%Y==0 && N/Y<=K) ? "YES "+to_string(N/Y) : "NO";
+    if(Y==0) return (N%X==0 && N/X<=K) ? "YES "+to_string(N/X) : "NO";
+
+    int G = gcd(X,Y);
+    if(N%G !=0) return "NO";
+
+    // upper bound for moves is K
+    // since each move adds at most X or Y, min moves <= N/min(X,Y)
+    int m_min = (N+max(X,Y)-1)/max(X,Y); 
+    if(m_min > K) return "NO";
+    return "YES "+to_string(m_min);
+}
+
+int main(){
+    int N,K;
+    cin>>N>>K;
+    cout<<can_reach_cookies(N,K)<<endl;
+    return 0;
+}
