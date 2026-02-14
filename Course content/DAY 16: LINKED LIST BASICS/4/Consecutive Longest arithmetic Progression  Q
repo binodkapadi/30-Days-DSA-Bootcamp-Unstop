@@ -1,0 +1,40 @@
+QUESTION ==>>
+
+-------------Consecutive Longest arithmetic Progression------------------
+PROBLEM STATEMENT
+Given a linked list, the task is to find the longest length of consecutive items in the linked list that form an arithmetic
+progression (AP). Display the length of the longest sequence that satisfies the properties of an arithmetic progression.
+
+
+INPUT FORMAT
+The first line of input contains an integer N, representing the size of the linked list.The second line of input contains N
+space seperated integers,representing the values of the linked list.
+
+
+OUTPUT FORMAT
+Display the Longest length of arithmetic Progression with consecutive elements in the Linked list.
+
+
+CONSTRAINTS
+1 <= N <= 10^3
+0 <= Node.val <= 10^6
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+5
+1 2 3 4 5
+Testcase Output
+5
+Explanation
+1 ->2->3->4->5 all have a common difference as 1 so the longest length of ap is 5.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+5 
+0 5 10 15 100
+Testcase Output
+4
+Explanation
+0-> 5 -> 10 -> 15 have a common difference as 5, so the longest length of ap is 4.
