@@ -1,0 +1,39 @@
+SOLUTION ==>>
+
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MOD = 998244353;
+
+int main() {
+    int N, M, K;
+    cin >> N >> M >> K;
+
+    vector<vector<int>> bad(N+1);
+    for (int i = 0; i < M; ++i) {
+        int u, v;
+        cin >> u >> v;
+        bad[u].push_back(v);
+        bad[v].push_back(u);
+    }
+
+    vector<long long> dp(N+1,0), new_dp(N+1,0);
+    dp[1] = 1;
+
+    for (int day = 1; day <= K; ++day) {
+        long long total = 0;
+        for(int i =1;i<=N;i++) total = (total + dp[i]) % MOD;
+
+        for(int i=1;i<=N;i++){
+            new_dp[i] = total - dp[i];
+            for(int nb : bad[i]){
+                new_dp[i] -= dp[nb];
+            }
+            new_dp[i] = ((new_dp[i] % MOD) + MOD) % MOD; // handle negative
+        }
+        dp = new_dp;
+    }
+
+    cout << dp[1] << endl;
+    return 0;
+}
