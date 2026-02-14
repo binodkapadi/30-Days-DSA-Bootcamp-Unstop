@@ -1,0 +1,37 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
+
+void sort_sentence(const std::string& s) {
+    std::istringstream iss(s);
+    std::string word;
+    std::vector<std::string> result(9); // max 9 words as per problem
+    int max_pos = 0;
+
+    while (iss >> word) {
+        int len = word.size();
+        char pos_char = word[len - 1]; // last character is the position
+        int pos = pos_char - '0';      // convert char to int
+        result[pos - 1] = word.substr(0, len - 1); // remove digit
+        if (pos > max_pos) max_pos = pos;
+    }
+
+    // print the sentence
+    for (int i = 0; i < max_pos; ++i) {
+        std::cout << result[i];
+        if (i != max_pos - 1) std::cout << " ";
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    std::string s;
+    std::getline(std::cin, s);
+    
+    sort_sentence(s);
+    
+    return 0;
+}
