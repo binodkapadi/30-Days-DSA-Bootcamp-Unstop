@@ -1,0 +1,57 @@
+QUESTION ==>>
+
+PROBLEM STATEMENT
+In a matrix, there is a snake and a man. The task is to find the number of paths the snake can take to reach the man’s 
+location. The snake cannot travel through walls. If the snake can’t reach the man’s location, return 0. If the snake can 
+reach the man’s location, return the number of ways the snake can travel. If either the man or the snake is not present, 
+return 0.
+Matrix Symbols:
+‘s’ represents the snake’s position.
+‘w’ represents a wall.
+‘m’ represents the man’s position.
+‘p’ represents a path the snake can move on.
+The snake can move in four directions: up, down, right, and left.
+
+
+INPUT FORMAT
+The first line contains an integer N, the number of rows in the matrix.The second line contains an integer M, the
+number of columns in the matrix.The next N lines contain M space-seperated characters each, representing the matrix.
+
+
+OUTPUT FORMAT
+Print the number of ways the snake can reach the man’s location. If it can’t, print 0.
+
+
+CONSTRAINTS
+1 < N <= 7
+1 < M <= 7
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+2
+2
+p s
+m w
+Testcase Output
+1
+Explanation
+The snake can move only in one way.
+S – p – m
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+6
+6
+p p p p p p
+p m p p w p
+p p p p p p
+p w p w p p
+p s p p p p
+p p w p p p
+Testcase Output
+1540
+Explanation
+Snake can move in four directions, and if there is a wall, return and go other way until we reach the men's location.
+This process happens again and again until we get all path
