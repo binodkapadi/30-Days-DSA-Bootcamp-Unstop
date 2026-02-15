@@ -1,0 +1,50 @@
+QUESTION ==>>
+
+-------------------The Quest for the Secure Vault------------------------
+PROBLEM STATEMENT
+In the city of Numerica, renowned for its technological advancements, a high-security facility named Vault-Prime safeguards 
+the city's most precious artifacts and treasures. This vault is said to be unbreakable, protected by a cutting-edge PIN 
+code system designed by the genius mathematician and inventor, Dr. Meta. Dr. Meta's secure locker system is unlike any
+other. The PIN codes used for accessing Vault-Prime must follow specific mathematical rules to ensure their uniqueness and
+uncrackable nature:
+The PIN is a string of digits, with a length determined by the level of access required.
+Positions within the PIN follow a prime-numbered indexing system (1-based):
+Prime indices are only allowed to hold prime digits.
+Non-prime indices must contain even digits.
+The Chief of Security, Clara Cipher, now faces a daunting task. She must calculate the total number of valid PINs that can 
+be generated for any given PIN length N to ensure that every access code remains unique and mathematically secure. However,
+Vault-Prime is equipped with an advanced computational system that can only handle numbers modulo 10^9 + 7, as the results
+can grow astronomically large. Clara knows the city’s security depends on this calculation. Can she figure out the total
+number of valid PINs for a given length N? Will the Vault-Prime remain secure?
+
+
+INPUT FORMAT
+The first line of input contains a single integer N, representing the length of the PIN.
+
+
+OUTPUT FORMAT
+Print a single integer representing the count of the valid PIN.
+
+
+CONSTRAINTS
+1 ≤ N ≤ 10^6
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+2
+Testcase Output
+20
+Explanation
+There will be 20 possible PIN with length 2 while adhering to the constraints.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+1
+Testcase Output
+5
+Explanation
+The PIN will be of length 1.
+Since it is 1 based indexing, the only index is 1 (non-prime number)
+So only even digit wil be assigned in non-prime index which is 0, 2, 4, 6, 8.
