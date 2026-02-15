@@ -1,0 +1,53 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+const int MOD = 1e9 + 7;
+
+// Fast exponentiation modulo MOD
+long long mod_pow(long long base, long long exp, long long mod) {
+    long long res = 1;
+    base %= mod;
+    while (exp > 0) {
+        if (exp % 2) res = (res * base) % mod;
+        base = (base * base) % mod;
+        exp /= 2;
+    }
+    return res;
+}
+
+int count_valid_pins(int N) {
+
+    // Step 1: Sieve to count prime indices
+    vector<bool> is_prime(N + 1, true);
+    is_prime[0] = is_prime[1] = false;
+    for (int i = 2; i * i <= N; i++) {
+        if (is_prime[i]) {
+            for (int j = i * i; j <= N; j += i)
+                is_prime[j] = false;
+        }
+    }
+
+    int num_prime_pos = 0;
+    for (int i = 1; i <= N; i++)
+        if (is_prime[i])
+            num_prime_pos++;
+
+    int num_nonprime_pos = N - num_prime_pos;
+
+    // Step 2: compute 4^prime * 5^nonprime % MOD
+    long long total = (mod_pow(4, num_prime_pos, MOD) * mod_pow(5, num_nonprime_pos, MOD)) % MOD;
+
+    return (int)total;
+}
+
+int main() {
+    int N;
+    cin >> N;
+
+    cout << count_valid_pins(N) << endl;
+
+    return 0;
+}
