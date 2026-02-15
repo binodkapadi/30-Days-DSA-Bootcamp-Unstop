@@ -1,0 +1,62 @@
+SOLUTION ==>>
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxMutatedViruses(int N, vector<int>& contamination_levels) {
+    vector<int> freq(105, 0); // contamination levels 1..100
+
+    for (int x : contamination_levels) freq[x]++;
+
+    // dp[i][j][k]: max triples using levels i..100
+    // with j leftover at i, k leftover at i+1
+    vector<vector<int>> dp(105, vector<int>(105, -1));
+    dp[1][0] = 0; // start with 0 leftover at level 1
+
+    for (int i = 1; i <= 100; ++i) {
+        vector<vector<int>> new_dp(105, vector<int>(105, -1));
+        for (int j = 0; j <= 2; ++j) {       // leftover at i
+            for (int k = 0; k <= 2; ++k) {   // leftover at i+1
+                if (dp[j][k] == -1) continue;
+
+                int available_i = freq[i] + j;     // leftover + current
+                int available_i1 = freq[i+1] + k;  // leftover at next level
+
+                // Try using t consecutive triples starting at i
+                int max_t = min({available_i, available_i1, freq[i+2]});
+                for (int t = 0; t <= max_t; ++t) {
+                    int left_i = available_i - t;
+                    int left_i1 = available_i1 - t;
+                    int left_i2 = freq[i+2] - t;
+
+                    // identical triples at i
+                    int ident_i = left_i / 3;
+                    left_i %= 3;
+
+                    // update DP for next level
+                    if (new_dp[left_i1][left_i2] < dp[j][k] + t + ident_i) {
+                        new_dp[left_i1][left_i2] = dp[j][k] + t + ident_i;
+                    }
+                }
+            }
+        }
+        dp = new_dp;
+    }
+
+    // answer = max over leftover at 101 and 102
+    int ans = 0;
+    for (int j = 0; j <= 2; ++j)
+        for (int k = 0; k <= 2; ++k)
+            ans = max(ans, dp[j][k]);
+    return ans;
+}
+
+int main() {
+    int V;
+    cin >> V;
+    vector<int> contamination_levels(V);
+    for (int i = 0; i < V; i++) cin >> contamination_levels[i];
+
+    cout << maxMutatedViruses(V, contamination_levels) << endl;
+    return 0;
+}
