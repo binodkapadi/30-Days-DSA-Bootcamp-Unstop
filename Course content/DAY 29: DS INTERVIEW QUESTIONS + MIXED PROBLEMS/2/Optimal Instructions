@@ -1,0 +1,32 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <string>
+#include <cmath>
+using namespace std;
+
+int main() {
+
+    string s;
+    cin >> s;
+
+    int R = 0, L = 0, F = 0, B = 0;
+
+    for(char c : s) {
+        if(c == 'R') R++;
+        else if(c == 'L') L++;
+        else if(c == 'F') F++;
+        else if(c == 'B') B++;
+    }
+
+    int x = R - L;
+    int y = F - B;
+
+    int minSteps = abs(x) + abs(y);
+
+    int result = s.size() - minSteps;
+
+    cout << result;
+
+    return 0;
+}
