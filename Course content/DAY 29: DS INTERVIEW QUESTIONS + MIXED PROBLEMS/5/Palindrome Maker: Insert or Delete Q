@@ -1,0 +1,53 @@
+QUESTION ==>>
+
+---------------------Palindrome Maker: Insert or Delete---------------------
+PROBLEM STATEMENT
+Alice loves palindromes. She has been given a string S of length N, and she can perform up to K operations on the string.
+Each operation can either be an insertion or a deletion of a character at any position in the string. The goal is to 
+determine how many distinct palindromic strings can be formed after exactly K operations and also return the 
+lexicographically smallest palindrome that can be created. A palindrome is a string that reads the same forwards and 
+backwards.
+Operations:
+Insertion: You can insert any character at any position in the string.
+Deletion: You can delete any character from the string.
+
+
+INPUT FORMAT
+The first line of input contains N and K.
+The Second line of input contains the string S.
+
+
+OUTPUT FORMAT
+Count of palindromic string in line 1: the count of distinct palindromic strings that can be formed by performing exactly 
+K operations. Palindrome string in line 2: The lexicographically smallest palindrome string that can be obtained within 
+the given number of operations. If it is impossible to create a palindrome within at most K operations, output -1.
+
+
+CONSTRAINTS
+1 <= N <= 10^3
+1 <= k < N
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+5 2
+hello
+Testcase Output
+-1
+Explanation
+The output -1 indicates that it is not possible to generate a palindrome by inserting or deleting characters from
+"hello" up to 2 times
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+4 3
+race
+Testcase Output
+40
+a
+Explanation
+After all operations, the set will have 40 distinct palindromic strings, including:
+Single-character palindromes like "a".
+Multi-character palindromes like "racecar".
+The smallest lexicographically palindrome will be "a".
