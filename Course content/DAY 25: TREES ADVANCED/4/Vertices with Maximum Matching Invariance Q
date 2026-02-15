@@ -1,0 +1,61 @@
+QUESTION ==>>
+
+-----------------Vertices with Maximum Matching Invariance---------------
+PROBLEM STATEMENT
+You are given a tree with N vertices labeled from 1 to N. The tree consists of N-1 edges, where the i-th edge connects the 
+vertices ui and vi. A matching in a graph is a set of edges such that no two edges share a common vertex. The maximum 
+matching of a graph is the largest possible matching. Your task is to find the number of vertices i (1 ≤ i ≤ N) that can be 
+removed along with all their incident edges, such that the size of the maximum matching remains the same as the original
+tree.
+
+
+INPUT FORMAT
+The first line of input contains an integer N,representing the number of vertices in the tree. The next N-1 lines of input 
+contains two space-seprtaed integers denoting the edge between u_i and v_i.
+
+
+OUTPUT FORMAT
+Print a single integer, representing the count of vertices that can be removed while keeping the size of the maximum 
+matching unchanged.
+
+
+CONSTRAINTS
+2 <= N <= 2*10^5
+1<= u_i,v_i <=N
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+2
+1 2
+Testcase Output
+0
+Explanation
+The original tree has only one edge (1-2). The maximum matching is 1.
+Removing either node 1 or node 2 leaves a single node, which has no edges, reducing the matching size to 0.
+No valid removals exist → Answer = 0.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+3
+1 2
+2 3
+Testcase Output
+2
+Explanation
+The original tree has a maximum matching of 1:
+1 - 2 - 3
+Maximum matching: (1-2) or (2-3) (size = 1)
+Remove node 1:
+The remaining tree is 2 - 3
+Maximum matching is 1, which remains the same. 
+
+Remove node 2:
+The remaining tree is two isolated nodes (1, 3)
+No possible matching (size = 0) 
+
+Remove node 3:
+The remaining tree is 1 - 2
+Maximum matching is 1, which remains the same. 
+Valid removals: Nodes {1, 3} → Count = 2.
