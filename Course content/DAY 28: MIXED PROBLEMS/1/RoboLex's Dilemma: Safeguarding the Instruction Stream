@@ -1,0 +1,28 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+int user_logic(int n, string s) {
+    string result = ""; // simulate stack
+    for (char c : s) {
+        result += c; // add current char
+        int len = result.size();
+        // Check last 4 characters for "kill"
+        if (len >= 4 && result.substr(len - 4, 4) == "kill") {
+            // Remove the first character 'k' from "kill"
+            result.erase(len - 4, 1); 
+        }
+    }
+    return result.size(); // length of safe string
+}
+
+int main() {
+    int n;
+    string s;
+    cin >> n >> s;
+    int result = user_logic(n, s);
+    cout << result << endl;
+    return 0;
+}
