@@ -1,0 +1,36 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+long long ans = 0;
+
+long long dfs(int node, int n, const vector<int> &w) {
+    int totalNodes = (1 << (n+1)) - 1;
+    if (node > totalNodes) return 0;
+    int left = node * 2;
+    int right = node * 2 + 1;
+    if (left > totalNodes) return 0;
+    long long leftPath = dfs(left, n, w) + w[left - 2];
+    long long rightPath = dfs(right, n, w) + w[right - 2];
+    ans += abs(leftPath - rightPath);
+    return max(leftPath, rightPath);
+}
+
+int user_logic(int n, const vector<int>& weights) {
+    ans = 0;
+    dfs(1, n, weights);
+    return ans;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> weights((1 << (n+1)) - 2);
+    for (int i = 0; i < weights.size(); ++i) {
+        cin >> weights[i];
+    }
+    cout << user_logic(n, weights) << endl;
+    return 0;
+}
