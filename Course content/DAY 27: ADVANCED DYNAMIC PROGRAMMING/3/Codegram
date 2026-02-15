@@ -1,0 +1,50 @@
+SOLUTION ==>>
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void user_logic(int n, int &min_people, int &max_one_way_pairs) {
+    if (n == 0) { // Edge case
+        min_people = 0;
+        max_one_way_pairs = 0;
+        return;
+    }
+
+    // Precompute triangular numbers
+    vector<int> tri;
+    for (int k = 1;; k++) {
+        long long t = 1LL * k * (k - 1) / 2;
+        if (t > n) break;
+        tri.push_back(t);
+    }
+
+    // DP for minimum people
+    const int INF = 1e9;
+    vector<int> dp(n + 1, INF);
+    vector<int> choice(n + 1, -1);
+    dp[0] = 0;
+
+    for (int i = 1; i <= n; i++) {
+        for (int t : tri) {
+            if (t > i) break;
+            int k = (int)(sqrt(2 * t) + 2); // approximate size
+            while (k * (k - 1) / 2 > t) k--;
+            if (dp[i - t] + k < dp[i]) {
+                dp[i] = dp[i - t] + k;
+                choice[i] = k;
+            }
+        }
+    }
+
+    min_people = dp[n];
+    max_one_way_pairs = min_people * (min_people - 1) / 2 - n;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    int min_people, max_one_way_pairs;
+    user_logic(n, min_people, max_one_way_pairs);
+    cout << min_people << " " << max_one_way_pairs << "\n";
+    return 0;
+}
