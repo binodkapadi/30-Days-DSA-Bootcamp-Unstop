@@ -1,0 +1,104 @@
+SOLUTION ==>>
+
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int N;
+    if (!(cin >> N)) return 0;
+    vector<vector<int>> g(N+1);
+    for (int i=0;i<N-1;i++){
+        int u,v; cin>>u>>v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    vector<int> parent(N+1, -1), order;
+    order.reserve(N);
+    vector<int> stk;
+    stk.reserve(N);
+    stk.push_back(1);
+    parent[1]=0;
+    while(!stk.empty()){
+        int u = stk.back(); stk.pop_back();
+        order.push_back(u);
+        for(int v: g[u]){
+            if (v==parent[u]) continue;
+            parent[v]=u;
+            stk.push_back(v);
+        }
+    }
+    const int NEG = -1000000000;
+    vector<int> down0(N+1,0), down1(N+1,0);
+    for (int i = (int)order.size()-1; i>=0; --i){
+        int u = order[i];
+        int sumM = 0;
+        int maxGain = NEG;
+        int s1 = 0;
+        for(int v: g[u]){
+            if (v==parent[u]) continue;
+            int a = down0[v];
+            int b = down1[v];
+            int M = max(a,b);
+            sumM += M;
+            maxGain = max(maxGain, 1 + b - M);
+            s1 += a;
+        }
+        down0[u] = sumM + max(0, maxGain==NEG ? NEG : maxGain);
+        down1[u] = s1;
+    }
+    vector<int> up0(N+1,0), up1(N+1,NEG), root_val(N+1,0);
+    for (int idx=0; idx<(int)order.size(); ++idx){
+        int u = order[idx];
+        int k = (int)g[u].size();
+        if (k==0) { root_val[u]=0; continue; }
+        vector<int> A(k), B(k), Mv(k), gain(k);
+        for (int i=0;i<k;i++){
+            int w = g[u][i];
+            int a,b;
+            if (w==parent[u]) { a = up0[u]; b = up1[u]; }
+            else { a = down0[w]; b = down1[w]; }
+            A[i]=a; B[i]=b; Mv[i]=max(a,b); gain[i]=1 + b - Mv[i];
+        }
+        vector<int> prefM(k), prefA(k), prefG(k);
+        for (int i=0;i<k;i++){
+            prefM[i] = Mv[i] + (i?prefM[i-1]:0);
+            prefA[i] = A[i] + (i?prefA[i-1]:0);
+            prefG[i] = (i? max(prefG[i-1], gain[i]) : gain[i]);
+        }
+        vector<int> suffM(k), suffA(k), suffG(k);
+        for (int i=k-1;i>=0;i--){
+            suffM[i] = Mv[i] + (i+1<k ? suffM[i+1] : 0);
+            suffA[i] = A[i] + (i+1<k ? suffA[i+1] : 0);
+            suffG[i] = (i+1<k ? max(suffG[i+1], gain[i]) : gain[i]);
+        }
+        int base_all = prefM[k-1];
+        int max_gain_all = prefG[k-1];
+        root_val[u] = base_all + max(0, max_gain_all==NEG ? NEG : max_gain_all);
+        for (int i=0;i<k;i++){
+            int base_except = (i?prefM[i-1]:0) + (i+1<k ? suffM[i+1] : 0);
+            int max_gain_except = NEG;
+            if (i>0) max_gain_except = max(max_gain_except, prefG[i-1]);
+            if (i+1<k) max_gain_except = max(max_gain_except, suffG[i+1]);
+            int up0_for = base_except + max(0, max_gain_except==NEG ? NEG : max_gain_except);
+            int up1_for = (i?prefA[i-1]:0) + (i+1<k ? suffA[i+1] : 0);
+            int w = g[u][i];
+            if (w != parent[u]){
+                up0[w] = up0_for;
+                up1[w] = up1_for;
+            }
+        }
+    }
+    int M = root_val[1];
+    int ans = 0;
+    for (int u=1; u<=N; ++u){
+        int total = 0;
+        for (int v: g[u]){
+            if (v == parent[u]) total += up0[u];
+            else total += down0[v];
+        }
+        if (total == M) ++ans;
+    }
+    cout << ans << '\n';
+    return 0;
+}
