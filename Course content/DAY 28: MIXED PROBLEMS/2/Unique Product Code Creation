@@ -1,0 +1,89 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <cmath>
+#include <climits>
+
+using namespace std;
+
+// ---------- ASCII Difference ----------
+int asciiDiff(const string &a, const string &b) {
+    int diff = 0;
+    for (int i = 0; i < a.size(); i++) {
+        diff += abs(a[i] - b[i]);
+    }
+    return diff;
+}
+
+// ---------- Generate all codes ----------
+void generateCodes(int N, string current, vector<char>& chars, vector<string>& codes) {
+    if (current.size() == N) {
+        codes.push_back(current);
+        return;
+    }
+
+    for (char c : chars) {
+        generateCodes(N, current + c, chars, codes);
+    }
+}
+
+// ---------- USER LOGIC ----------
+void user_logic(int N, vector<char>& chars, int& total_codes,
+                vector<string>& codes, pair<string, string>& min_diff_pair) {
+
+    // 1. total count
+    total_codes = pow(3, N);
+
+    // 2. generate all codes
+    generateCodes(N, "", chars, codes);
+
+    // 3. sort descending
+    sort(codes.rbegin(), codes.rend());
+
+    // 4. find minimum ASCII difference pair
+    int minDiff = INT_MAX;
+
+    for (int i = 0; i < codes.size() - 1; i++) {
+        int d = asciiDiff(codes[i], codes[i + 1]);
+
+        if (d > 0 && d < minDiff) {
+            minDiff = d;
+            min_diff_pair = {codes[i], codes[i + 1]};
+        }
+    }
+}
+
+// ---------- MAIN ----------
+int main() {
+    int N;
+    vector<char> chars(3);
+
+    cin >> N;
+
+    for (int i = 0; i < 3; i++) {
+        cin >> chars[i];
+    }
+
+    int total_codes;
+    vector<string> codes;
+    pair<string, string> min_diff_pair;
+
+    user_logic(N, chars, total_codes, codes, min_diff_pair);
+
+    // print total codes
+    cout << total_codes << endl;
+
+    // print codes
+    for (const auto& code : codes) {
+        cout << code << " ";
+    }
+    cout << endl;
+
+    // print min difference pair
+    cout << min_diff_pair.first << " " << min_diff_pair.second << endl;
+
+    return 0;
+}
