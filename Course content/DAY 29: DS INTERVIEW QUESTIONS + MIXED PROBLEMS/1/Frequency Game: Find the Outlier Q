@@ -1,0 +1,55 @@
+QUESTION ==>>
+
+PROBLEM STATEMENT
+You are given an array nums of size N. A minority element is defined as the element that has a frequency closest to the
+median frequency of all elements in the array. If there are multiple elements that satisfy this condition, follow these 
+rules: Return the index the element with the smallest value among them. If there is a tie, return the index of the first
+occurrence of the chosen minority element. The array may contain negative numbers, and the size of the array N is always at 
+least 3.
+
+
+INPUT FORMAT
+The first line contains a single integer, N, representing the size of the array nums. The second line contains N space
+separated integers, representing the elements of the array nums.
+
+
+OUTPUT FORMAT
+Print a single integer, representing the 1-based index of the first occurrence of the chosen minority element.
+
+
+CONSTRAINTS
+3 <= N <= 10^5
+-10^4 <= nums[i] <= 10^4.
+The array contains at least 3 unique elements.
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+5
+10 20 30 40 50
+Testcase Output
+1
+Explanation
+Frequency Calculation:
+All elements (10, 20, 30, 40, 50) appear once, so their frequencies are 1.
+
+Median Frequency:
+The list of frequencies is [1, 1, 1, 1, 1]. The median frequency is 1.
+Choosing the Minority Element:
+All elements have the same frequency. The smallest element is 10 and is at index 1 (1 based indexing).
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+8
+32 9 58 99 9 32 99 58
+Testcase Output
+2
+Explanation
+Frequency Calculation: 32:2, 9:2, 58:2, 99:2.
+Median Frequency:
+The list of frequencies is [2, 2, 2, 2]. The median frequency is 2.
+Choosing the Minority Element:
+All elements have the same frequency of 2. The smallest element is 9.
+First Occurrence:
+The first occurrence of 9 is at index 2 (1-based indexing).
