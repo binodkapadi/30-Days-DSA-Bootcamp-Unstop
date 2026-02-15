@@ -1,0 +1,66 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+#include <climits>
+
+using namespace std;
+
+int find_minority_element_index(int N, vector<int>& nums) {
+
+    unordered_map<int,int> freq;
+    unordered_map<int,int> firstIndex;
+
+    // count frequency + first occurrence
+    for (int i = 0; i < N; i++) {
+        freq[nums[i]]++;
+
+        if (!firstIndex.count(nums[i]))
+            firstIndex[nums[i]] = i;
+    }
+
+    // collect frequencies
+    vector<int> f;
+    for (auto &p : freq)
+        f.push_back(p.second);
+
+    sort(f.begin(), f.end());
+
+    int median = f[f.size()/2];
+
+    int bestDiff = INT_MAX;
+    int bestValue = INT_MAX;
+
+    // choose best element
+    for (auto &p : freq) {
+        int value = p.first;
+        int fr = p.second;
+
+        int diff = abs(fr - median);
+
+        if (diff < bestDiff ||
+           (diff == bestDiff && value < bestValue)) {
+            bestDiff = diff;
+            bestValue = value;
+        }
+    }
+
+    // return 1-based index of first occurrence
+    return firstIndex[bestValue] + 1;
+}
+
+int main() {
+    int N;
+    cin >> N;
+
+    vector<int> nums(N);
+    for (int i = 0; i < N; ++i) {
+        cin >> nums[i];
+    }
+
+    cout << find_minority_element_index(N, nums) << endl;
+
+    return 0;
+}
