@@ -1,0 +1,39 @@
+SOLUTION ===>>
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to perform in-order traversal on the array representation of binary tree
+void inorder(int index, const vector<int> &arr, vector<int> &inorderSeq, int n) {
+    if (index >= n) return;
+    inorder(2 * index + 1, arr, inorderSeq, n); // left child
+    inorderSeq.push_back(arr[index]);
+    inorder(2 * index + 2, arr, inorderSeq, n); // right child
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) cin >> arr[i];
+
+    vector<int> inorderSeq;
+    inorder(0, arr, inorderSeq, n);
+
+    long long operations = 0;
+    int prev = 0; // Minimum value allowed
+    for (int i = 0; i < n; i++) {
+        if (inorderSeq[i] < prev) {
+            operations += (prev - inorderSeq[i]);
+        } else {
+            prev = inorderSeq[i];
+        }
+        prev++; // next node in BST must be strictly greater
+    }
+
+    cout << operations << "\n";
+    return 0;
+}
