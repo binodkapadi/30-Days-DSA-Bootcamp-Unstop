@@ -1,0 +1,103 @@
+QUESTION ==>>
+
+------------------------Dynamic Region Sum Calculation in Matrix---------------
+PROBLEM STATEMENT
+You are given a square matrix N×N of integers. Your task is to calculate the sum of elements from three distinct regions:
+Main diagonal and its adjacent diagonals: Elements from the main diagonal and one diagonal on each side (above and below). 
+Border elements: Elements on the outer border of the matrix. Central sub-matrix: Elements in a smaller K × K sub-matrix
+(central region of the matrix). If N is even, the central sub-matrix is the smallest possible square that is completely
+enclosed within the matrix.
+Note: Each element in the matrix can contribute to only one region. 
+
+
+INPUT FORMAT
+The first line contains two integers N and K, where N is the size of matrix(NxN) and K is the size of the central 
+sub-matrix. The next N lines each contain N space separated integers, representing the matrix elements.
+
+
+OUTPUT FORMAT
+Print a single integer representing the sum of the three regions, adhering to the above rules.
+
+
+CONSTRAINTS
+1 <= K <= N <= 100
+-10^3 <= mat[i][j] <= 10^3
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+5 1
+1 2 3 4 3
+4 5 6 8 8
+7 8 9 7 2
+3 6 9 1 1
+2 4 6 8 9
+Testcase Output
+112
+Explanation
+
+1. Main Diagonal and Adjacent Diagonals
+Elements:
+Main diagonal: (1,1),(2,2),(3,3),(4,4),(5,5) → 1,5,9,1,9
+Above diagonal: (1,2),(2,3),(3,4),(4,5) → 2,6,7,1
+Below diagonal: (2,1),(3,2),(4,3),(5,4) → 4,8,9,8
+Unique Elements:
+{1,5,9,1,9,2,6,7,1,4,8,9,8}
+Sum:
+1+5+9+1+9+2+6+7+1+4+8+9+8=70
+
+2. Border Elements
+Elements:
+First row: (1,1),(1,2),(1,3),(1,4),(1,5) → 1,2,3,4,3
+Last row: (5,1),(5,2),(5,3),(5,4),(5,5) → 2,4,6,8,9
+First column: (2,1),(3,1),(4,1) → 4,7,3
+Last column: (2,5),(3,5),(4,5) → 8,2,1
+Remove elements already counted in the diagonal regions:
+Overlapping elements: 1,2,4,9,8,1
+Unique Border Elements:
+{3,4,3,8,2,6,4,2,3,7}
+Sum:
+3+4+3+ 8+2+6+4+2+3+7=42
+
+3. Central Sub-Matrix
+Element:
+(3,3)=9
+Sum: 0
+Total Sum
+Total Sum=Main Diagonal Sum+Border Sum+Central Sum =70+42+0=112
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+3 1
+4  2  3
+1  5  6
+7  8  9
+Testcase Output
+45
+Explanation
+
+1. Main Diagonal and Adjacent Diagonals
+Main diagonal: (1,1),(2,2),(3,3) → 4,5,9
+Above diagonal: (1,2),(2,3) → 2,6
+Below diagonal: (2,1),(3,2) → 1,8
+Unique elements in this region:
+{4,5,9,2,6,1,8}
+Sum: 4+5+9+2+6+1+8=35
+
+2. Border Elements
+First row: (1,1),(1,2),(1,3) → 4,2,3
+Last row: (3,1),(3,2),(3,3) → 7,8,9
+First column: (2,1) → 1
+Last column: (2,3) → 6
+Remove overlapping elements already counted in the diagonal region:
+Overlaps: 4,2,6,8,9,1
+Unique Border Elements: {3,7}
+Sum: 3+7=10
+
+3. Central Sub-Matrix
+For k=1, the central sub-matrix is the single element at the center of the matrix, (2,2)=5 but (2,2) is already selected so we will take 0.
+Sum: 0
+Total Sum
+Total Sum=Main Diagonal Sum+Border Sum+Central Sum 
+Total Sum=35+10+0=45
