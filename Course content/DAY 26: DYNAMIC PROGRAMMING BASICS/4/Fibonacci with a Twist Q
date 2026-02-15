@@ -1,0 +1,47 @@
+QUESTION ==>>
+
+------------Fibonacci with a Twist-------------
+PROBLEM STATEMENT
+You are given a number N and asked to calculate X based on the following recurrence rules:
+Base cases:
+If N = 0, then X = 5.
+If N = 1, then X = 3.
+For N > 1, the recurrence is as follows:
+If N is odd, then X = (F(N-1) + F(N-2)) mod 998.
+If N is even, then X = (F(N-1) * F(N-2)) mod 999.
+Where F(N) represents the value of X for N calculated according to the above rules.
+Task: Given a number N, help calculate X efficiently.
+
+
+INPUT FORMAT
+The first and only line of input contain a single integer N.
+
+
+OUTPUT FORMAT
+Print the value of X.
+
+
+CONSTRAINTS
+0 <= N <= 10^5
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+10
+Testcase Output
+675
+Explanation
+Given N = 10,
+We need to calculate F[2], F[3], F[4], ... , F[9], such that
+F[10] = (F[9] + F[8]) mod 999, which will give answer = 675.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+5
+Testcase Output
+288
+Explanation
+Given N = 5,
+We need to calculate F[2], F[3] and F[4], such that
+F[5] = (F[4] + F[3]) mod 998, which will give answer = 288.
