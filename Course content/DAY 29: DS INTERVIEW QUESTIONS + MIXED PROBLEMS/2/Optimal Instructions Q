@@ -1,0 +1,44 @@
+QUESTION ===>>
+
+--------------Optimal Instructions--------------
+PROBLEM STATEMENT
+In a remote control car game, a player can use 4 buttons on a control device to move the car in 4 directions: Forward (F), 
+Backward (B), Left (L), and Right (R). The car's movement needs to be optimized by deleting unnecessary instructions while
+maintaining the same final destination. This is important because each instruction takes time to execute, and reducing the
+number of instructions can make the gameplay smoother and faster. Initially, the car is at position (0, 0) in an infinitely
+large grid. Given the original set of instructions for the car in the form of a string, STR, consisting of only four 
+characters: ‘F’, ‘B’, ‘L’, and ‘R’, what is the maximum number of instructions that can be deleted and still have the car
+reach the destination?
+
+
+INPUT FORMAT
+A single line containing a string, STR, consisting of only four characters:  ‘F’, ‘B’, ‘L’ and ‘R’, representing the
+directions in which the car can move.
+
+
+OUTPUT FORMAT
+Print a single integer, the maximum number of instructions that can be deleted, and still have the car reach the destination.
+
+
+CONSTRAINTS
+1 <= |STR| <= 10^5
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+RFBL
+Testcase Output
+4
+Explanation
+We can delete all the characters in the instruction string since after deleting them, the car will still be at its initial
+position, i.e. (0, 0). Hence the answer is 4.
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+BBB
+Testcase Output
+0
+Explanation
+Here it is impossible to delete any character from the instruction string since we cannot reach the final destination after 
+deleting any characters from the string. Hence the answer is 0.
