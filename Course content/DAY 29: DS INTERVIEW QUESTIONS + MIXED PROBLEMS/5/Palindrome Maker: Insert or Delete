@@ -1,0 +1,59 @@
+SOLUTION ===>>
+
+#include<bits/stdc++.h>
+#define ll long long int 
+using namespace std;
+
+bool ispalindrome(string s) {
+    ll n = s.length();
+    for(ll i=0; i<n/2; i++) {
+        if(s[i] != s[n-i-1]) 
+            return false;
+    }
+    return true;
+}
+
+void palindromes(string s, ll k, set<string>& st) {
+    if(k == 0) {
+        if(ispalindrome(s)) {
+            st.insert(s);
+        }
+        return;
+    }
+    
+    // Try deleting each character
+    for(ll i=0; i<s.length(); i++) {
+        string temp = s;
+        temp.erase(i,1);
+        palindromes(temp, k-1, st);
+    }
+    
+    // Try inserting each character at each position
+    for(ll i=0; i<=s.length(); i++) {
+        for(char ch = 'a'; ch<='z'; ch++) {
+            string temp = s;
+            temp.insert(temp.begin() + i, ch);
+            palindromes(temp, k-1, st);
+        }
+    }
+}
+
+int main() {
+    ll n,k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
+    
+    set<string>st;
+    palindromes(s, k, st); 
+    
+    if(st.empty()) {
+        cout<<-1<<endl;
+        return 0;
+    } else {
+        cout<<st.size()<<endl;
+        cout<<*st.begin()<<endl;
+    }
+    
+    return 0;
+}
