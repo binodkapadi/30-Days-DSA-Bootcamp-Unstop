@@ -1,0 +1,69 @@
+SOLUTION ===>>
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void calculate_sum(const vector<vector<int>>& matrix, int n, int k) {
+
+    vector<vector<bool>> used(n, vector<bool>(n, false));
+    long long sum = 0;
+
+    // -----------------------
+    // 1. Main + adjacent diagonals
+    // -----------------------
+    for (int i = 0; i < n; i++) {
+        for (int j = max(0, i - 1); j <= min(n - 1, i + 1); j++) {
+            if (!used[i][j]) {
+                sum += matrix[i][j];
+                used[i][j] = true;
+            }
+        }
+    }
+
+    // -----------------------
+    // 2. Border
+    // -----------------------
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == 0 || i == n-1 || j == 0 || j == n-1) {
+                if (!used[i][j]) {
+                    sum += matrix[i][j];
+                    used[i][j] = true;
+                }
+            }
+        }
+    }
+
+    // -----------------------
+    // 3. Central submatrix
+    // -----------------------
+    int start = (n - k) / 2;
+    int end = start + k;
+
+    for (int i = start; i < end; i++) {
+        for (int j = start; j < end; j++) {
+            if (!used[i][j]) {
+                sum += matrix[i][j];
+                used[i][j] = true;
+            }
+        }
+    }
+
+    cout << sum;
+}
+
+int main() {
+    int n, k;
+    cin >> n >> k;
+
+    vector<vector<int>> matrix(n, vector<int>(n));
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            cin >> matrix[i][j];
+
+    calculate_sum(matrix, n, k);
+
+    return 0;
+}
