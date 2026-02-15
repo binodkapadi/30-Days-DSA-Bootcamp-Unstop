@@ -1,0 +1,44 @@
+QUESTION ==>>
+
+-----------------------Octal Pattern Count------------------
+PROBLEM STATEMENT
+You are given an integer N, and your objective is to count the number of strings of length N that can be generated 
+according to the following rules and convert this count to its octal representation. The strings consist of lowercase
+vowels only ('a', 'e', 'i', 'o', 'u') and must follow the rules below for valid transitions between vowels:
+'e' and 'u' can come after 'a'.
+'i' and 'a' can come after 'e'.
+'o' and 'e' can come after 'i'.
+'u' and 'i' can come after 'o'.
+'a' and 'o' can come after 'u'.
+Note: If N is 0 or if no valid strings can be formed for the given N, Display 1.
+Since the answer may be large, therefore output with mod 10^9+7.
+
+
+INPUT FORMAT
+The first line of input contains a single integer N representing the length of the string.
+
+
+OUTPUT FORMAT
+Display the octal representation of the number of valid strings of length N.
+
+
+CONSTRAINTS
+1 <= N <= 2 * 10^6
+
+
+SAMPLE TESTCASE 0
+Testcase Input
+1
+Testcase Output
+5
+Explanation
+All possible strings are: "a," "e," "i," "o," and "u."
+
+
+SAMPLE TESTCASE 1
+Testcase Input
+2
+Testcase Output
+12
+Explanation
+10 possible strings are: "ae", "au", "ei", "ea", "ie", "io", "oi", "ou", "uo" and "ua". 10 to octal is 12.
