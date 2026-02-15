@@ -1,0 +1,35 @@
+SOLUTION ==>>
+
+#include <iostream>
+#include <unordered_map>
+using namespace std;
+
+// memoization table
+unordered_map<int, long long> dp;
+
+long long Maximum(long long N) {
+    // base case
+    if (N == 0)
+        return 0;
+
+    // already computed
+    if (dp.count(N))
+        return dp[N];
+
+    // recursive choice
+    long long split = Maximum(N/2) + Maximum(N/3) + Maximum(N/4);
+
+    // take maximum
+    dp[N] = max(N, split);
+
+    return dp[N];
+}
+
+int main() {
+    long long N;
+    cin >> N;
+
+    cout << Maximum(N) << "\n";
+
+    return 0;
+}
